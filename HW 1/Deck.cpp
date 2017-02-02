@@ -9,7 +9,7 @@
 #include "Deck.h"
 #include <ctime>
 #include <random>
-#include <iostream>
+#include <string>
 
 Deck::Deck(){
    //seed random numbers only once when class is first initiliazed
@@ -18,7 +18,7 @@ Deck::Deck(){
       srand((int)time(NULL));
    }
    
-   string suits[] = {"spades","hearts","clubs","diamonds"}; //suit possibilities
+   std::string suits[] = {"spades","hearts","clubs","diamonds"}; //suit possibilities
    //loop through ranks and suits to generate ordered deck of cards
    for (int i = 0; i<4; i++) {
       for (int j = 0; j<13; j++) {

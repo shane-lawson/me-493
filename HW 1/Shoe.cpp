@@ -7,6 +7,7 @@
 //
 
 #include "Shoe.h"
+#include <random>
 
 void Shoe::shuffle() {
    Card tempCardOne;

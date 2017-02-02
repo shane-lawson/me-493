@@ -7,7 +7,6 @@
 //
 
 #include "Card.h"
-#include "Deck.h"
 #include <vector>
 
 #ifndef Shoe_h
