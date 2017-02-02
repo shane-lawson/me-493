@@ -41,8 +41,8 @@ void Deck::shuffle(){
    int cardTwoSpot;
 
    for (int i = 0 ; i < 1000; i++) {
-      cardOneSpot = rand()%52;
-      cardTwoSpot = rand()%52;
+      cardOneSpot = rand()%cards.size();
+      cardTwoSpot = rand()%cards.size();
       tempCardOne = cards.at(cardOneSpot);
       tempCardTwo = cards.at(cardTwoSpot);
       cards.erase(cards.begin()+cardOneSpot);

@@ -8,12 +8,11 @@
 
 #include "Card.h"
 #include <vector>
-using namespace std;
 
 #ifndef Deck_h
 #define Deck_h
 class Deck {
-   vector<Card> cards;
+   std::vector<Card> cards;
    
 public:
    Deck();
