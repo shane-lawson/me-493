@@ -1,5 +1,6 @@
 # Random Xcode artifacts
 *.xcodeproj/
+DerivedData/
 *.xcbkptlist
 *.xcworkspacedata
 *.xcscheme
