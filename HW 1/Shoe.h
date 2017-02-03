@@ -13,10 +13,17 @@
 #define Shoe_h
 
 class Shoe {
+   int decks;
    std::vector<Card> cards;
    
 public:
+   Shoe();
+   Shoe(int);
    void shuffle();
+   void printToFile();
+   void runTest();
+   void testA();
+   void testB();
 };
 
 #endif /* Shoe_h */
