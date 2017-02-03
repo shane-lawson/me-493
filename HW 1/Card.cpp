@@ -8,6 +8,7 @@
 
 #include "Card.h"
 #include <iostream>
+#include <fstream>
 
 Card::Card(){
    rank = 0;
@@ -19,7 +20,14 @@ Card::Card(int rankIn,std::string suitIn){
    suit = suitIn;
 }
 
-void Card::display(){
+void Card::display(std::ofstream* fout){
    //display rank and suit
-   std::cout << rank << "\t" << suit << std::endl;
+   *fout << rank << "\t" << suit << std::endl;
+}
+
+bool Card::operator==(const Card &card) const {
+   if ( (card.rank == this->rank) && (card.suit == this->suit) ) {
+      return true;
+   }
+   return false;
 }

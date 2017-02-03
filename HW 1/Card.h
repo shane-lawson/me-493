@@ -18,6 +18,7 @@ class Card {
 public:
    Card();
    Card(int,std::string);
-   void display();
+   void display(std::ofstream*);
+   bool operator==(const Card&) const;
 };
 #endif /* card_h */
