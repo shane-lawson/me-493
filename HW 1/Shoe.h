@@ -17,8 +17,7 @@ class Shoe {
    std::vector<Card> cards;
    
 public:
-   Shoe();
-   Shoe(int);
+   Shoe(int numDecks = 0);
    void shuffle();
    void printToFile();
    void runTest();

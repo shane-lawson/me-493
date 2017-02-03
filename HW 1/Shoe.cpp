@@ -8,15 +8,18 @@
 
 #include "Shoe.h"
 #include "Deck.h"
+#include <ctime>
 #include <random>
 #include <fstream>
 #include <assert.h>
 
-Shoe::Shoe(){
-   decks = 0;
-}
-
 Shoe::Shoe(int numDecks){
+   //seed random numbers only once when class is first initiliazed
+   static bool seeded = false;
+   if(!seeded){
+      srand((int)time(NULL));
+   }
+   
    decks = numDecks;
    Deck newDeck;
    std::vector<Card> newDeckCards = newDeck.getCards();
