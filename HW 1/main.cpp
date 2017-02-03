@@ -7,16 +7,22 @@
 //
 
 #include <iostream>
-#include "Deck.h"
+#include "Shoe.h"
 using namespace std;
 
 int main() {
-   Deck numberOne;
+   int input;
+   cout << "How many decks would you like to shuffle?" << endl;
+   cout << "Enter number: ";
+   cin >> input;
+   cout << "Shuffling " << input << " decks..." << endl;
    
-   numberOne.display();
-   numberOne.shuffle();
-   cout << endl << endl;
-   numberOne.display();
+   Shoe decks(input);
+
+   decks.shuffle();
+   decks.runTest();
+   decks.printToFile();
    
+   cout << "Done!" << endl;
    return 0;
 }
