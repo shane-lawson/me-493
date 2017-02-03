@@ -16,8 +16,10 @@ class Deck {
    
 public:
    Deck();
+   std::vector<Card> getCards();
    void display();
    void shuffle();
+   void printToFile();
 };
 
 #endif /* deck_h */
