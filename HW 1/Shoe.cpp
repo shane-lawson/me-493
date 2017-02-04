@@ -35,7 +35,10 @@ void Shoe::shuffle() {
    int cardOneSpot;
    int cardTwoSpot;
    
-   for (int i = 0 ; i < 10000; i++) {
+   //swap random cards a variable number of times based on how many exist in shoe
+   //cards.size()*20 results in ~10000 times per deck of cards
+   for (int i = 0 ; i < cards.size()*20; i++) {
+      //get random indices
       cardOneSpot = rand()%cards.size();
       cardTwoSpot = rand()%cards.size();
       
@@ -47,7 +50,6 @@ void Shoe::shuffle() {
       cards.erase(cards.begin()+cardTwoSpot);
       cards.insert(cards.begin()+cardOneSpot, tempCardOne);
    }
-
 }
 
 void Shoe::printToFile(){
@@ -69,6 +71,7 @@ void Shoe::printToFile(){
 }
 
 void Shoe::runTest(){
+   //select which test to run based on number of decks
    if (decks > 1) {
       this->testB();
    }else{
@@ -77,25 +80,32 @@ void Shoe::runTest(){
 }
 
 void Shoe::testA(){
+   //run single deck test
    bool found = false;
    Card tempCard;
    
+   //pull each card of the shoe, and compare it to every other card in the shoe
+   //after checking each card against the rest of the shoe, assert that a match has not been found
    for (int i = 0; i < cards.size(); i++) {
       tempCard = cards.at(i);
       for (int j = 0; j < cards.size(); j++) {
-         if ( (tempCard == cards.at(j)) && (j != i) ) {
+         if ((tempCard == cards.at(j)) && (j != i)) {
             found = true;
          }
       }
-      assert(found == false);
+      assert(found != true);
    }
 }
 
 void Shoe::testB(){
+   //run multideck test
    int instances = 0;
    Card firstCard = cards.at(0);
    
-   for (int i=0; i<cards.size(); i++) {
+   //pull first card from the shoe, and compare it to every other card in the shoe
+   //when a match is found, increment instances
+   //assert total number of instances is the same number as decks
+   for (int i=0; i < cards.size(); i++) {
       if(cards.at(i) == firstCard){
          instances++;
       }
