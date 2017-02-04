@@ -12,14 +12,11 @@
 #ifndef Deck_h
 #define Deck_h
 class Deck {
-   std::vector<Card> cards;
+   std::vector<Card> cards;       //vector containing cards in deck
    
 public:
-   Deck();
-   std::vector<Card> getCards();
-   void display();
-   void shuffle();
-   void printToFile();
+   Deck();                        //constructor for a deck of cards
+   std::vector<Card>* getCards(); //return pointer to vector containing cards
 };
 
 #endif /* deck_h */

@@ -10,7 +10,9 @@
 #include <string>
 
 Deck::Deck(){
+   //construct an unshuffled deck of cards
    std::string suits[] = {"spades","hearts","clubs","diamonds"}; //suit possibilities
+   
    //loop through ranks and suits to generate ordered deck of cards
    for (int i = 0; i<4; i++) {
       for (int j = 0; j<13; j++) {
@@ -19,6 +21,7 @@ Deck::Deck(){
    }
 }
 
-std::vector<Card> Deck::getCards(){
-   return cards;
+std::vector<Card>* Deck::getCards(){
+   //return address of cards in deck
+   return &cards;
 }

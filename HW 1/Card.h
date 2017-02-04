@@ -12,13 +12,12 @@
 #include <string>
 
 class Card {
-   int rank;
-   std::string suit;
+   int rank;                           //number signifying card rank
+   std::string suit;                   //string containing card suit
    
 public:
-   Card();
-   Card(int,std::string);
-   void display(std::ofstream*);
-   bool operator==(const Card&) const;
+   Card(int i=0,std::string s="");     //constructor for card, allows with specified suit and rank
+   void display(std::ofstream*);       //print "(rank) (suit)" as line in file
+   bool operator==(const Card&) const; //overload == operator for comparison of cards
 };
 #endif /* card_h */

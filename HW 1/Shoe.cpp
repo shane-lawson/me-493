@@ -14,18 +14,22 @@
 #include <assert.h>
 
 Shoe::Shoe(int numDecks){
-   //seed random numbers only once when class is first initiliazed
+   //construct a shoe
+   //seed random numbers for shuffling only once when class is first initialized
    static bool seeded = false;
    if(!seeded){
       srand((int)time(NULL));
    }
    
-   decks = numDecks;
+   decks = 0;
+   //create new, unshuffled deck of cards
    Deck newDeck;
-   std::vector<Card> newDeckCards = newDeck.getCards();
+   std::vector<Card>* newDeckCards = newDeck.getCards();
    
+   //add cards from deck to the shoe numDecks times
    for (int i=0; i < numDecks; i++) {
-      cards.insert(cards.end(),newDeckCards.begin(),newDeckCards.end());
+      cards.insert(cards.end(),newDeckCards->begin(),newDeckCards->end());
+      decks++;
    }
 }
 
