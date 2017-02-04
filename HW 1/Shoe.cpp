@@ -72,12 +72,23 @@ void Shoe::runTest(){
    if (decks > 1) {
       this->testB();
    }else{
-      this->testB();
+      this->testA();
    }
 }
 
 void Shoe::testA(){
+   bool found = false;
+   Card tempCard;
    
+   for (int i = 0; i < cards.size(); i++) {
+      tempCard = cards.at(i);
+      for (int j = 0; j < cards.size(); j++) {
+         if ( (tempCard == cards.at(j)) && (j != i) ) {
+            found = true;
+         }
+      }
+      assert(found == false);
+   }
 }
 
 void Shoe::testB(){
@@ -89,6 +100,5 @@ void Shoe::testB(){
          instances++;
       }
    }
-   
    assert(instances == decks);
 }
