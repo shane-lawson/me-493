@@ -21,7 +21,7 @@ Deck::Deck(){
    }
 }
 
-std::vector<Card>* Deck::getCards(){
+std::vector<Card> Deck::getCards() const{
    //return address of cards in deck
-   return &cards;
+   return cards;
 }

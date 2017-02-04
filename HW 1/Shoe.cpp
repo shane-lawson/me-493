@@ -24,11 +24,11 @@ Shoe::Shoe(int numDecks){
    decks = 0;
    //create new, unshuffled deck of cards
    Deck newDeck;
-   std::vector<Card>* newDeckCards = newDeck.getCards();
+   std::vector<Card> newDeckCards = newDeck.getCards();
    
    //add cards from deck to the shoe numDecks times
    for (int i=0; i < numDecks; i++) {
-      cards.insert(cards.end(),newDeckCards->begin(),newDeckCards->end());
+      cards.insert(cards.end(),newDeckCards.begin(),newDeckCards.end());
       decks++;
    }
 }
@@ -56,7 +56,7 @@ void Shoe::shuffle() {
    }
 }
 
-void Shoe::printToFile(){
+void Shoe::printToFile() const{
    //output all cards in shoe to file
    std::string fileName;
    if (decks > 1) {
@@ -74,7 +74,7 @@ void Shoe::printToFile(){
    fout->close();
 }
 
-void Shoe::runTest(){
+void Shoe::runTest() const{
    //select which test to run based on number of decks
    if (decks > 1) {
       this->testB();
@@ -83,7 +83,7 @@ void Shoe::runTest(){
    }
 }
 
-void Shoe::testA(){
+void Shoe::testA() const{
    //run single deck test
    bool found = false;
    Card tempCard;
@@ -101,7 +101,7 @@ void Shoe::testA(){
    }
 }
 
-void Shoe::testB(){
+void Shoe::testB() const{
    //run multideck test
    int instances = 0;
    Card firstCard = cards.at(0);
