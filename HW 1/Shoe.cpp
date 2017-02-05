@@ -84,7 +84,7 @@ void Shoe::runTest() const{
 }
 
 void Shoe::testA() const{
-   //run single deck test
+   //run single deck test 
    bool found = false;
    Card tempCard;
    
