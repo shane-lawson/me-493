@@ -14,6 +14,7 @@ using namespace std;
 int getNumDecksFromUser();
 
 int main() {
+   string fileName;
    int numDecks = getNumDecksFromUser();
    
    cout << "Shuffling " << numDecks << " decks..." << endl;
@@ -27,21 +28,24 @@ int main() {
    //run test on shoe
    decks.runTest();
    
-   //print shoe to file
-   decks.printToFile();
-   
    cout << "Done!" << endl;
+   
+   //print shoe to file
+   fileName = decks.printToFile();
+   
+   cout << "Shuffled cards can be found in \"" << fileName << "\"." << endl;
+   
    return 0;
 }
 
 int getNumDecksFromUser(){
-   int input = 0;
+   int input = 1;
    //console output and user input
    while(true){
       cout << string(75,'\n') << "How many decks would you like to shuffle?" << endl;
       
       //if input is not numeric or negative, ask for positive int
-      if(!cin.good() || input < 0){
+      if(!cin.good() || input <= 0){
          cin.clear();
          cin.ignore();
          cout << "Please enter a positive integer: ";
