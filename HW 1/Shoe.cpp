@@ -56,7 +56,7 @@ void Shoe::shuffle() {
    }
 }
 
-void Shoe::printToFile() const{
+std::string Shoe::printToFile() const{
    //output all cards in shoe to file
    std::string fileName;
    if (decks > 1) {
@@ -72,6 +72,8 @@ void Shoe::printToFile() const{
       cards.at(i).display(fout);
    }
    fout->close();
+   
+   return fileName;
 }
 
 void Shoe::runTest() const{

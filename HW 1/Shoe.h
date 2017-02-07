@@ -21,7 +21,7 @@ class Shoe {
 public:
    Shoe(int numDecks = 0);   //constructor for shoe, allows construction with specified number of decks
    void shuffle();           //shuffles all cards in shoe
-   void printToFile() const; //prints all cards in shoe to file
+   std::string printToFile() const; //prints all cards in shoe to file
    void runTest() const;     //runs test of shoe, testA for single decks, testB for multidecks
 };
 
