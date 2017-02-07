@@ -9,4 +9,4 @@ Shoe.o: Shoe.cpp
 main.o: main.cpp
 	g++ -c main.cpp
 clean:
-	rm *.o a.out
+	rm *.o hw1
