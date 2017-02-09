@@ -9,13 +9,12 @@
 #ifndef Arm_h
 #define Arm_h
 class Arm {
-public:
-   
    double mean;
    double stdDev;
    double z1;
    bool generate;
-   
+
+public:
    Arm();
    double getReward();
 };
