@@ -13,27 +13,33 @@ using namespace std;
 int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
+
+   int num = 100000;
+   int numArms = 5;
    
-   Arm arm1;
-   cout << "Mean: " << arm1.mean << "\tstDev: " << arm1.stdDev << endl;
+   MAB mab(numArms);
    
-   int num = 1000;
+   double rewards[numArms][num];
    
-   double rewards[num];
-   
-   for (int i = 0; i < num; i++) {
-      rewards[i] = arm1.getReward();
+   for (int j = 0; j < numArms; j++) {
+      for (int i = 0; i < num; i++) {
+         rewards[j][i] = mab.pullArm(j);
+      }
    }
    
-   double totalReward = 0.0;
+   cout << "Found mean: " << endl;
    
-   for (int i = 0; i < num; i++) {
-      totalReward = totalReward + rewards[i];
+   double totalReward[numArms];
+
+   for (int j = 0; j < numArms; j++) {
+      totalReward[j] = 0.0;
+      for (int i = 0; i < num; i++) {
+         totalReward[j] = totalReward[j] + rewards[j][i];
+      }
+      totalReward[j] = totalReward[j] / num;
+      cout << totalReward[j] << endl;
    }
-   
-   totalReward = totalReward / num;
-   
-   cout << "Found mean: " << totalReward << endl;
+
    
     return 0;
 }
