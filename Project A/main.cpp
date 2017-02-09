@@ -33,7 +33,7 @@ int main() {
    
    totalReward = totalReward / num;
    
-   cout << "Found meaen: " << totalReward << endl;
+   cout << "Found mean: " << totalReward << endl;
    
     return 0;
 }
