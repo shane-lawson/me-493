@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-#define SLRAND (double)rand()/RAND_MAX //rand between 0 and 1
+#define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
 Arm::Arm() {
    //construct an arm
