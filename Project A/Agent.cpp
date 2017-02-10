@@ -13,7 +13,7 @@
 
 #define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
-Agent::Agent() {
+Agent::Agent(MAB* pMAB) {
    //seed random numbers for shuffling only once when class is first initialized
    static bool seeded = false;
    if(!seeded){
@@ -21,8 +21,13 @@ Agent::Agent() {
       seeded = true;
    }
    
+   mab = pMAB;
    alpha = 0.1;
    epsilon = 0.05;
+   
+   for (int i = 0; i <mab->getNumArms(); i++) {
+      armValues.push_back(0.0);
+   }
 }
 
 int Agent::getMaxArm() {
@@ -37,24 +42,26 @@ int Agent::getMaxArm() {
    return maxPosition;
 }
 
-void Agent::sense() {
-   
-}
-
-int Agent::decide(const int numArms) {
+int Agent::decide() {
    //epsilon (do random)
    if (SLRAND <= epsilon) {
-      return rand()%numArms;
+      return rand()%mab->getNumArms();
    } else {
       //1-epsilon (do greedy)
       return this->getMaxArm();
    }
 }
 
-double Agent::act(const int armToPull, MAB* mab) {
+double Agent::act(const int armToPull) {
    return mab->pullArm(armToPull);
 }
 
-void Agent::react(const int armPulled, double reward) {
+void Agent::react(const int armPulled, const double reward) {
    armValues.at(armPulled) = reward*alpha + armValues.at(armPulled)*(1-alpha);
+}
+
+void Agent::executeCycle() {
+   int armToPull = this->decide();
+   double reward = this->act(armToPull);
+   this->react(armToPull, reward);
 }

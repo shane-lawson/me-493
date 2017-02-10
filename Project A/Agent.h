@@ -16,14 +16,16 @@ class Agent {
    double alpha;
    double epsilon;
    std::vector<double> armValues;
+   MAB* mab;
    
    int getMaxArm();
+   //void sense() not required in this application
+   int decide();
+   double act(const int);
+   void react(const int,const double);
 public:
-   Agent();
-   void sense();
-   int decide(const int);
-   double act(const int,MAB*);
-   void react(const int,double);
+   Agent(MAB* = NULL);
+   void executeCycle();
 };
 
 #endif /* Agent_h */
