@@ -9,6 +9,9 @@
 #include "Agent.h"
 #include <random>
 #include <ctime>
+#include "MAB.h"
+
+#define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
 Agent::Agent() {
    //seed random numbers for shuffling only once when class is first initialized
@@ -22,20 +25,36 @@ Agent::Agent() {
    epsilon = 0.05;
 }
 
+int Agent::getMaxArm() {
+   double maxValue = 0;
+   int maxPosition = 0;
+   for (int i = 0; i < armValues.size(); i++) {
+      if (armValues.at(i) > maxValue) {
+         maxPosition = i;
+         maxValue = armValues.at(i);
+      }
+   }
+   return maxPosition;
+}
+
 void Agent::sense() {
    
 }
 
-void Agent::decide() {
+int Agent::decide(const int numArms) {
    //epsilon (do random)
-   //1-epsilon (do greedy)
-   
+   if (SLRAND <= epsilon) {
+      return rand()%numArms;
+   } else {
+      //1-epsilon (do greedy)
+      return this->getMaxArm();
+   }
 }
 
-void Agent::act() {
-   
+double Agent::act(const int armToPull, MAB* mab) {
+   return mab->pullArm(armToPull);
 }
 
-void Agent::react() {
-   
+void Agent::react(const int armPulled, double reward) {
+   armValues.at(armPulled) = reward*alpha + armValues.at(armPulled)*(1-alpha);
 }

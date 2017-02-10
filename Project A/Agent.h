@@ -8,15 +8,22 @@
 
 #ifndef Agent_h
 #define Agent_h
+
+#include <vector>
+class MAB;
+
 class Agent {
    double alpha;
    double epsilon;
+   std::vector<double> armValues;
    
+   int getMaxArm();
+public:
    Agent();
    void sense();
-   void decide();
-   void act();
-   void react();
+   int decide(const int);
+   double act(const int,MAB*);
+   void react(const int,double);
 };
 
 #endif /* Agent_h */
