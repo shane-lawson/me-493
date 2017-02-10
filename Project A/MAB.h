@@ -18,6 +18,7 @@ class MAB {
 public:
    MAB(int i = 1);
    double pullArm(int);
+   int getNumArms();
 };
 
 #endif /* MAB_h */

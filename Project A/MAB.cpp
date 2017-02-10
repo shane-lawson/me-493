@@ -18,3 +18,7 @@ MAB::MAB(int in) {
 double MAB::pullArm(int i) {
    return arms.at(i).getReward();
 }
+
+int MAB::getNumArms() {
+   return (int)arms.size();
+}
