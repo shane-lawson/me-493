@@ -63,10 +63,15 @@ void Agent::react(const int armPulled, const double reward) {
    armValues.at(armPulled) = reward*alpha + armValues.at(armPulled)*(1-alpha);
 }
 
-void Agent::executeCycle() {
-   int armToPull = this->decide();
-   double reward = this->act(armToPull);
-   this->react(armToPull, reward);
+void Agent::executeCycle(int i) {
+   int armToPull;
+   double reward;
+   
+   for (int j = 0; j < i; j++) {
+      armToPull = this->decide();
+      reward = this->act(armToPull);
+      this->react(armToPull, reward);
+   }
 }
 
 void Agent::showValues(std::ofstream* fout) {
@@ -86,4 +91,17 @@ void Agent::testA(int numOfPulls, double threshold) {
    double upperlimit = armMean + threshold*armMean;
    double lowerLimit = armMean - threshold*armMean;
    assert(averagedValue < upperlimit && averagedValue > lowerLimit);
+}
+
+void Agent::testB() {
+   //don't actually know how to implement this test, what makes one "clearly the right choice"? Means are comparable, but perhaps a slighlty higher mean has a larger standard deviation. In that case, the safer bet to get more money might be the lower mean because it is much more consistent. I guess I'll just compare means and match the highest.
+   double maxValue = 0.0;
+   double maxValueArm = 0;
+   for (int i = 0; i < mab->getNumArms(); i++) {
+      if (mab->getArmMean(i) > maxValue) {
+         maxValue = mab->getArmMean(i);
+         maxValueArm = i;
+      }
+   }
+   assert(maxValueArm == this->getMaxArm());
 }

@@ -27,10 +27,10 @@ class Agent {
    void react(const int,const double);
 public:
    Agent(MAB* = NULL);
-   void executeCycle();
+   void executeCycle(int i=1);
    void showValues(std::ofstream*);
    void testA(int,double);
-   
+   void testB();
 };
 
 #endif /* Agent_h */
