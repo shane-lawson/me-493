@@ -17,6 +17,7 @@ class Arm {
 public:
    Arm();
    double getReward();
+   double getMean() const;
 };
 
 #endif /* Arm_h */

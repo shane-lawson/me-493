@@ -24,8 +24,8 @@ Arm::Arm() {
       seeded = true;
    }
    
-   mean = rand()%100;
-   stdDev = rand()%100;
+   mean = (rand()%100)+1; //+1 so it doesn't end up zero
+   stdDev = (rand()%25)+1;  //+1 so it doesn't end up zero
    z1 = -1;
    generate = false;
    
@@ -45,4 +45,8 @@ double Arm::getReward() {
    } else {
       return z1*stdDev + mean;
    }
+}
+
+double Arm::getMean() const{
+   return mean;
 }
