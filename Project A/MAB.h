@@ -19,6 +19,7 @@ public:
    MAB(int i = 1);
    double pullArm(int);
    int getNumArms();
+   double getArmMean(int) const;
 };
 
 #endif /* MAB_h */

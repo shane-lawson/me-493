@@ -22,3 +22,7 @@ double MAB::pullArm(int i) {
 int MAB::getNumArms() {
    return (int)arms.size();
 }
+
+double MAB::getArmMean(int arm) const{
+   return arms.at(arm).getMean();
+}
