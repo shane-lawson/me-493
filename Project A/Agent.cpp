@@ -10,6 +10,9 @@
 #include <random>
 #include <ctime>
 #include "MAB.h"
+#include <assert.h>
+
+#include <fstream>
 
 #define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
@@ -64,4 +67,23 @@ void Agent::executeCycle() {
    int armToPull = this->decide();
    double reward = this->act(armToPull);
    this->react(armToPull, reward);
+}
+
+void Agent::showValues(std::ofstream* fout) {
+   for (int i = 0; i < armValues.size(); i++) {
+      *fout << armValues.at(i) << "\t";
+   }
+   *fout << std::endl;
+}
+
+void Agent::testA(int numOfPulls, double threshold) {
+   double averagedValue = 0.0;
+   for (int i = 0; i < numOfPulls; i++) {
+      averagedValue = averagedValue + this->act(0);
+   }
+   averagedValue = averagedValue / numOfPulls;
+   double armMean = mab->getArmMean(0);
+   double upperlimit = armMean + threshold*armMean;
+   double lowerLimit = armMean - threshold*armMean;
+   assert(averagedValue < upperlimit && averagedValue > lowerLimit);
 }

@@ -12,6 +12,8 @@
 #include <vector>
 class MAB;
 
+#include <fstream>
+
 class Agent {
    double alpha;
    double epsilon;
@@ -26,6 +28,9 @@ class Agent {
 public:
    Agent(MAB* = NULL);
    void executeCycle();
+   void showValues(std::ofstream*);
+   void testA(int,double);
+   
 };
 
 #endif /* Agent_h */
