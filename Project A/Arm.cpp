@@ -11,8 +11,6 @@
 #include <random>
 #include <cmath>
 
-#include <iostream>
-
 #define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
 Arm::Arm() {
@@ -28,8 +26,6 @@ Arm::Arm() {
    stdDev = SLRAND*25;
    z1 = -1;
    generate = false;
-   
-   std::cout << "Mean: " << mean << "\tstdDev: " << stdDev << std::endl;
 }
 
 double Arm::getReward() {
