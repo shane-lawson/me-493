@@ -86,13 +86,17 @@ void Agent::showValues(std::ofstream* fout) {
    *fout << std::endl;
 }
 
-void Agent::testA(int numOfPulls, double threshold) {
+void Agent::testA() {
    double averagedValue = 0.0;
+   int numOfPulls = 1000000;
+   
    for (int i = 0; i < numOfPulls; i++) {
       averagedValue = averagedValue + this->act(0);
    }
+
    averagedValue = averagedValue / numOfPulls;
    double armMean = mab->getArmMean(0);
+   double threshold = 0.01; // +- % window
    double upperlimit = armMean + threshold*armMean;
    double lowerLimit = armMean - threshold*armMean;
    assert(averagedValue < upperlimit && averagedValue > lowerLimit);
@@ -109,4 +113,12 @@ void Agent::testB() {
       }
    }
    assert(maxValueArm == this->getMaxArm());
+}
+
+void Agent::runTest() {
+   if (this->armValues.size() > 1) {
+      this->testB();
+   } else {
+      this->testA();
+   }
 }

@@ -25,13 +25,14 @@ class Agent {
    int decide();
    double act(const int);
    void react(const int,const double);
+   void testA();
+   void testB();
 public:
    Agent(MAB* = NULL);
    void executeCycle(int i=1);
    void showValues(std::ofstream*);
-   void testA(int,double);
-   void testB();
    void reset();
+   void runTest();
 };
 
 #endif /* Agent_h */
