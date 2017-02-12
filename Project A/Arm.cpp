@@ -24,8 +24,8 @@ Arm::Arm() {
       seeded = true;
    }
    
-   mean = (rand()%100)+1; //+1 so it doesn't end up zero
-   stdDev = (rand()%25)+1;  //+1 so it doesn't end up zero
+   mean = SLRAND*100;
+   stdDev = SLRAND*25;
    z1 = -1;
    generate = false;
    
