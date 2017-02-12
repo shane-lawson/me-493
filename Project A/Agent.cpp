@@ -25,12 +25,17 @@ Agent::Agent(MAB* pMAB) {
    }
    
    mab = pMAB;
+   this->reset();
+}
+
+void Agent::reset() {
    alpha = 0.1;
    epsilon = 0.05;
    
    for (int i = 0; i <mab->getNumArms(); i++) {
       armValues.push_back(0.0);
    }
+   
 }
 
 int Agent::getMaxArm() {

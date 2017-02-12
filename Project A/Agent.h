@@ -31,6 +31,7 @@ public:
    void showValues(std::ofstream*);
    void testA(int,double);
    void testB();
+   void reset();
 };
 
 #endif /* Agent_h */
