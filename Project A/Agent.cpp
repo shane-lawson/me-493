@@ -11,6 +11,7 @@
 #include <ctime>
 #include "MAB.h"
 #include <assert.h>
+#include <iostream>
 
 #include <fstream>
 
@@ -118,7 +119,9 @@ void Agent::testB() {
 void Agent::runTest() {
    if (this->armValues.size() > 1) {
       this->testB();
+      std::cout << "Test B passed!" << std::endl;
    } else {
       this->testA();
+      std::cout << "Test A passed!" << std::endl;
    }
 }
