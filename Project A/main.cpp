@@ -12,35 +12,48 @@
 #include <fstream>
 using namespace std;
 
+int getNumArmsFromUser();
+
 int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
 
-   MAB steve(1);
+   int numOfPulls = 1000000;
+   int numArms = getNumArmsFromUser();
    
-   Agent Bourne(&steve);
+   MAB mab(numArms);
+   
+   Agent Bond(&mab);
+   
+   Bond.executeCycle(numOfPulls);
+   
+   Bond.runTest();
 
-   ofstream fout;
-
-   for (int i = 0; i < 30; i++) {
-      Bourne.testA(1000000,0.01);
-   }
-   
-//   
-//   int num = 1000000;
-//   int numArms = 12;
-//   
-//   MAB mab(numArms);
-//   
-//   Agent Bond(&mab);
-//   
-//   fout.open("rewards12.txt");
-//   
-//   for (int i = 0; i < num; i++) {
-//      Bond.executeCycle();
-//      Bond.showValues(&fout);
-//   }
-//   fout.close();
-   
    return 0;
+}
+
+int getNumArmsFromUser(){
+   int input = 1;
+   //console output and user input
+   while(true){
+      cout << string(75,'\n') << "How many arms would you like to have?" << endl;
+      
+      //if input is not numeric or negative, ask for positive int
+      if(!cin.good() || input <= 0){
+         cin.clear();
+         cin.ignore();
+         cout << "Please enter a positive integer: ";
+      }else{
+         cout << "Enter number: ";
+      }
+      
+      //get input
+      cin >> input;
+      
+      ///break infinite loop if input is numeric and positive
+      if(cin.good() && input > 0){
+         break;
+      }
+   }
+   return input;
 }
