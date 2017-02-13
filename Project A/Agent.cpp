@@ -33,6 +33,8 @@ void Agent::reset() {
    alpha = 0.1;
    epsilon = 0.05;
    
+   armValues.clear();
+   
    for (int i = 0; i <mab->getNumArms(); i++) {
       armValues.push_back(0.0);
    }
@@ -72,12 +74,23 @@ void Agent::react(const int armPulled, const double reward) {
 void Agent::executeCycle(int i) {
    int armToPull;
    double reward;
+   std::ofstream fout;
+   std::string fileName;
    
+   if (armValues.size() == 1) {
+      fileName = "singleArmResults.txt";
+   } else {
+      fileName = "multiArmResults.txt";
+   }
+   
+   fout.open(fileName, std::ofstream::out | std::ofstream::app);
    for (int j = 0; j < i; j++) {
       armToPull = this->decide();
       reward = this->act(armToPull);
       this->react(armToPull, reward);
+      this->showValues(&fout);
    }
+   fout.close();
 }
 
 void Agent::showValues(std::ofstream* fout) {
