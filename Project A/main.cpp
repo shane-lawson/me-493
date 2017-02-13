@@ -18,16 +18,20 @@ int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
 
-   int numOfPulls = 1000000;
+   int numOfPulls = 10000;
    int numArms = getNumArmsFromUser();
    
    MAB mab(numArms);
    
    Agent Bond(&mab);
    
-   Bond.executeCycle(numOfPulls);
+   for (int i = 0; i < 30; i++) {
+      Bond.executeCycle(numOfPulls);
    
-   Bond.runTest();
+      Bond.runTest();
+      Bond.reset();
+   }
+   cout << "Mean: " << mab.getArmMean(0) << endl;
 
    return 0;
 }
