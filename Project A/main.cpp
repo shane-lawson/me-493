@@ -18,21 +18,33 @@ int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
 
-   int numOfPulls = 10000;
+   int numOfPulls = 10000; //number of iterations
+   //get number of arms from user
    int numArms = getNumArmsFromUser();
    
+   //create multi armed bandit with specified number of arms
    MAB mab(numArms);
    
+   //create agent with pointer to multi armed bandit to interact with
    Agent Bond(&mab);
    
+   //30 statistical runs
    for (int i = 0; i < 30; i++) {
+      //ask agent to execute its action cycle
       Bond.executeCycle(numOfPulls);
    
+      //ask agent to run test
       Bond.runTest();
+      
+      //reset the agent for next run (i.e. using MIB Agent K's neuralyzer)
       Bond.reset();
    }
-   cout << "Mean: " << mab.getArmMean(0) << endl;
 
+   //output arm means to console for plotting validation
+//   for (int i = 0; i < mab.getNumArms(); i++) {
+//      cout << "Mean: " << mab.getArmMean(i) << endl;
+//   }
+   
    return 0;
 }
 
