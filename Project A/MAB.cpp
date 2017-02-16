@@ -8,21 +8,22 @@
 
 #include "MAB.h"
 
-MAB::MAB(int in) {
+MAB::MAB(const int in) {
+   //create new arm the specified number of times and put it in the arms vector
    for (int i = 0; i < in; i++) {
       Arm newArm;
       arms.push_back(newArm);
    }
 }
 
-double MAB::pullArm(int i) {
+double MAB::pullArm(const int i) {
    return arms.at(i).getReward();
 }
 
-int MAB::getNumArms() {
+int MAB::getNumArms() const{
    return (int)arms.size();
 }
 
-double MAB::getArmMean(int arm) const{
+double MAB::getArmMean(const int arm) const{
    return arms.at(arm).getMean();
 }
