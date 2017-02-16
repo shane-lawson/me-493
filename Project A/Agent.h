@@ -32,6 +32,8 @@ public:
    void executeCycle(int i=1);         //executes the specified number of sense, decide, act, react cycles
    void reset();                       //resets all of the agents learned values to 0
    void runTest();                     //selects and runs testA or testB depending on number of arms
+   void setEpsilon(const double);      //sets epsilon to specified value, used for varying parameter tests
+   void setAlpha(const double);        //sets alpha to specified value, used for varying parameter tests
 };
 
 #endif /* Agent_h */

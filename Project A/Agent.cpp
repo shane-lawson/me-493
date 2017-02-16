@@ -144,3 +144,11 @@ void Agent::runTest() {
       std::cout << "Test A passed!" << std::endl;
    }
 }
+
+void Agent::setAlpha(double alphaIn) {
+   alpha = alphaIn;
+}
+
+void Agent::setEpsilon(double epsilonIn) {
+   epsilon = epsilonIn;
+}
