@@ -22,6 +22,7 @@ Arm::Arm() {
       seeded = true;
    }
    
+   //create random mean and stdDev
    mean = SLRAND*100;
    stdDev = SLRAND*25;
    z1 = -1;
@@ -32,6 +33,7 @@ double Arm::getReward() {
    generate = !generate;
    //box muller gives 2 z values, so we only have to generate them every other time.
    if (generate) {
+      //box muller magic
       double u1 = SLRAND;
       double u2 = SLRAND;
       double z0;
