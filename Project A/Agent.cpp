@@ -78,26 +78,19 @@ void Agent::executeCycle(int i) {
    std::string fileName;
    
    if (armValues.size() == 1) {
-      fileName = "singleArmResults.txt";
+      fileName = "singleArmRewards.txt";
    } else {
-      fileName = "multiArmResults.txt";
+      fileName = "multiArmRewards.txt";
    }
    
    fout.open(fileName, std::ofstream::out | std::ofstream::app);
    for (int j = 0; j < i; j++) {
       armToPull = this->decide();
       reward = this->act(armToPull);
+      fout << reward << std::endl;
       this->react(armToPull, reward);
-      this->showValues(&fout);
    }
    fout.close();
-}
-
-void Agent::showValues(std::ofstream* fout) {
-   for (int i = 0; i < armValues.size(); i++) {
-      *fout << armValues.at(i) << "\t";
-   }
-   *fout << std::endl;
 }
 
 void Agent::testA() {

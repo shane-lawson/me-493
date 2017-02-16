@@ -30,7 +30,6 @@ class Agent {
 public:
    Agent(MAB* = NULL);
    void executeCycle(int i=1);
-   void showValues(std::ofstream*);
    void reset();
    void runTest();
 };
