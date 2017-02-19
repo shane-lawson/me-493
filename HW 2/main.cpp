@@ -7,9 +7,10 @@
 //
 
 #include <iostream>
+using namespace std;
 
 int main() {
    // insert code here...
-   std::cout << "Magical butterflies and unicorns." << endl;
+   cout << "Magical butterflies and unicorns." << endl;
     return 0;
 }
