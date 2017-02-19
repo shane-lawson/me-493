@@ -18,7 +18,7 @@ int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
 
-   int numOfPulls = 10000; //number of iterations
+   int numOfPulls = 25000; //number of iterations
    //get number of arms from user
    int numArms = getNumArmsFromUser();
    
@@ -28,8 +28,13 @@ int main() {
    //create agent with pointer to multi armed bandit to interact with
    Agent Bond(&mab);
    
+//   double startingEpsilon = 0.01;
+   
    //30 statistical runs
+//   for (int j = 0; j < 5; j++) {
    for (int i = 0; i < 30; i++) {
+//      Bond.setEpsilon(startingEpsilon);
+      
       //ask agent to execute its action cycle
       Bond.executeCycle(numOfPulls);
    
@@ -39,6 +44,8 @@ int main() {
       //reset the agent for next run (i.e. using MIB Agent K's neuralyzer)
       Bond.reset();
    }
+//      startingEpsilon = startingEpsilon + 0.05;
+//   }
 
    //output arm means to console for plotting validation
 //   for (int i = 0; i < mab.getNumArms(); i++) {
