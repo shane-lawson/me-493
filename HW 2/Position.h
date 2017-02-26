@@ -10,13 +10,11 @@
 #define Position_h
 
 class Position {
-   int xCoord;
-   int yCoord;
+   int x;
+   int y;
    
 public:
-   Position(int x=-1, int y=-1);
-   void setPosition(int,int);
-   void SetPosition(char,int);
+   Position(int xCoord=-1, int yCoord=-1);
 };
 
 #endif /* Postition_h */

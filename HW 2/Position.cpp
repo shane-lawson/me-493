@@ -8,19 +8,7 @@
 
 #include "Position.h"
 
-Position::Position(int x, int y) {
-   setPosition(x, y);
-}
-
-void Position::setPosition(int x, int y) {
-   xCoord = x;
-   yCoord = y;
-}
-
-void Position::SetPosition(char axis, int input) {
-   if (axis == 'x') {
-      xCoord = input;
-   } else {
-      yCoord = input;
-   }
+Position::Position(int xCoord, int yCoord) {
+   x = xCoord;
+   y = yCoord;
 }
