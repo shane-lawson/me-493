@@ -9,5 +9,20 @@
 #ifndef Agent_h
 #define Agent_h
 
+#include "Position.h"
+#include "Grid.h"
+#include "Goal.h"
+
+class Agent {
+   Position pos;
+   Grid map;
+   Goal endGoal;
+   
+public:
+   Agent();
+   
+   void move();
+   void move(char);
+};
 
 #endif /* Agent_h */
