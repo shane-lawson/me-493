@@ -10,7 +10,14 @@
 #define Grid_h
 
 class Grid {
+   int rows;
+   int columns;
    
+   void getRowsAndColsFromUser(int&,int&);
+public:
+   Grid();
+   int getNumRows();
+   int getNumCols();
 };
 
 #endif /* Grid_h */
