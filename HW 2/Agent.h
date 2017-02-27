@@ -23,6 +23,10 @@ public:
    
    void move();
    void move(char);
+//   void sense(); necessary for Project B
+//   int decide();
+//   double act();
+//   void react();
 };
 
 #endif /* Agent_h */
