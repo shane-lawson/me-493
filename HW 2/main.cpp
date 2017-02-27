@@ -13,5 +13,6 @@ using namespace std;
 int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
+   Agent Bond;
     return 0;
 }
