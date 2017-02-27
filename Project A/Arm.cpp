@@ -15,7 +15,7 @@
 
 Arm::Arm() {
    //construct an arm
-   //seed random numbers for shuffling only once when class is first initialized
+   //seed random numbers only once when class is first initialized
    static bool seeded = false;
    if(!seeded){
       srand((int)time(NULL));
