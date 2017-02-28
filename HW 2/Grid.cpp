@@ -15,6 +15,7 @@ Grid::Grid() {
 }
 
 void Grid::getRowsAndColsFromUser(int& row, int& column) {
+   std::cout << std::string(75,'\n');
    std::cout << "Please specify grid size." << std::endl;
    std::cout << "Rows: ";
    std::cin >> row;
