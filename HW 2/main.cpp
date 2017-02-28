@@ -13,8 +13,8 @@
 using namespace std;
 
 int promptForControlMode();
-void runManual(Agent*);
-void runAuto(Agent*);
+void TestB(Agent*);
+void TestC(Agent*);
 
 ////////// MAIN //////////
 
@@ -28,9 +28,9 @@ int main() {
    controlMode = promptForControlMode();
 
    if (controlMode == 1) {
-      runManual(&Bond);
+      TestB(&Bond); //manual mode
    } else {
-      runAuto(&Bond);
+      TestC(&Bond); //auto mode
    }
    
    return 0;
@@ -38,7 +38,7 @@ int main() {
 
 ////////// FUNCTIONS //////////
 
-void runManual(Agent* agent) {
+void TestB(Agent* agent) {
    char input = 'a';
    char done = false;
    
@@ -62,7 +62,7 @@ void runManual(Agent* agent) {
    }
 }
 
-void runAuto(Agent* agent) {
+void TestC(Agent* agent) {
    char input = 'a';
    char done = false;
    //auto control
