@@ -23,7 +23,7 @@ Agent::Agent() {
       seeded = true;
    }
    
-   //create goal
+   //create goal randomly within grid
    endGoal = Goal(rand()%map.getNumCols(),rand()%map.getNumRows());
 
    //place agent in random spot
@@ -32,6 +32,7 @@ Agent::Agent() {
 }
 
 bool Agent::move(char direction) {
+   //if allowed, move agent in specified direction
    switch (direction) {
       case 'w':
       case 'W':
@@ -61,11 +62,14 @@ bool Agent::move(char direction) {
       default:
          break;
    }
-//   std::cout << "x: " << pos.x << "\ty: " << pos.y << std::endl;
+
+   //get position of goal
    Position goalPos = endGoal.getPosition();
    
+   //update the display with the agent and goal positions
    map.displayGrid(pos.x, pos.y, goalPos.x, goalPos.y);
    
+   //if agent and goal positions match, then success!
    if (pos.x == goalPos.x && pos.y == goalPos.y) {
       std::cout << std::endl << "Success!" << std::endl;
       return true;
@@ -74,7 +78,10 @@ bool Agent::move(char direction) {
 }
 
 bool Agent::move() {
+   //get goal position
    Position goalPos = endGoal.getPosition();
+   
+   //move agent toward the row containing the goal, if not there already
    if (goalPos.y != pos.y) {
       if (goalPos.y - pos.y > 0) {
          return this->move('s');
@@ -82,6 +89,7 @@ bool Agent::move() {
          return this->move('w');
       }
    } else {
+      //move agent toward the column containing the goal
       if (goalPos.x - pos.x > 0) {
          return this->move('d');
       } else {

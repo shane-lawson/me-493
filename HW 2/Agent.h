@@ -14,15 +14,14 @@
 #include "Goal.h"
 
 class Agent {
-   Position pos;
-   Grid map;
-   Goal endGoal;
+   Position pos;    //the current position of the agent
+   Grid map;        //the grid, given to the agent as a "map", useful in Project B
+   Goal endGoal;    //the goal
    
 public:
-   Agent();
-   
-   bool move();
-   bool move(char);
+   Agent();         //constructs an agent
+   bool move();     //determines which direction to move agent to get closer to the goal, then uses move(char) to move in that
+   bool move(char); //moves agent one square in the specified direction and returns true if the agent and goal positions match
 //   void sense(); necessary for Project B
 //   int decide();
 //   double act();
