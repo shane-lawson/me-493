@@ -18,6 +18,7 @@ public:
    Grid();
    int getNumRows();
    int getNumCols();
+   void displayGrid(int,int,int,int);
 };
 
 #endif /* Grid_h */
