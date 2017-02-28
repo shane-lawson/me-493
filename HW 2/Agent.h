@@ -21,8 +21,8 @@ class Agent {
 public:
    Agent();
    
-   void move();
-   void move(char);
+   bool move();
+   bool move(char);
 //   void sense(); necessary for Project B
 //   int decide();
 //   double act();

@@ -22,33 +22,37 @@ Agent::Agent() {
       srand((int)time(NULL));
       seeded = true;
    }
-
+   
+   //create goal
    endGoal = Goal(rand()%map.getNumCols(),rand()%map.getNumRows());
 
    //place agent in random spot
    pos.x = rand()%map.getNumCols();
    pos.y = rand()%map.getNumRows();
-   std::cout << "x: " << pos.x << "\ty: " << pos.y << std::endl;
 }
 
-void Agent::move(char direction) {
+bool Agent::move(char direction) {
    switch (direction) {
-      case 'u':
+      case 'w':
+      case 'W':
          if (pos.y-1 >= 0) {
             pos.y--;
          }
          break;
-      case 'd':
+      case 's':
+      case 'S':
          if (pos.y+1 < map.getNumRows()) {
             pos.y++;
          }
          break;
-      case 'l':
+      case 'a':
+      case 'A':
          if (pos.x-1 >= 0) {
             pos.x--;
          }
          break;
-      case 'r':
+      case 'd':
+      case 'D':
          if (pos.x+1 < map.getNumCols()) {
             pos.x++;
          }
@@ -58,23 +62,30 @@ void Agent::move(char direction) {
          break;
    }
 //   std::cout << "x: " << pos.x << "\ty: " << pos.y << std::endl;
-   map.displayGrid(pos.x, pos.y, endGoal.getPosition().x, endGoal.getPosition().y);
+   Position goalPos = endGoal.getPosition();
+   
+   map.displayGrid(pos.x, pos.y, goalPos.x, goalPos.y);
+   
+   if (pos.x == goalPos.x && pos.y == goalPos.y) {
+      std::cout << std::endl << "Success!" << std::endl;
+      return true;
+   }
+   return false;
 }
 
-void Agent::move() {
+bool Agent::move() {
    Position goalPos = endGoal.getPosition();
-   std::cout << goalPos.x << "\t" << goalPos.y << std::endl;
    if (goalPos.y != pos.y) {
       if (goalPos.y - pos.y > 0) {
-         this->move('d');
+         return this->move('s');
       } else {
-         this->move('u');
+         return this->move('w');
       }
    } else {
       if (goalPos.x - pos.x > 0) {
-         this->move('r');
+         return this->move('d');
       } else {
-         this->move('l');
+         return this->move('a');
       }
    }
 }
