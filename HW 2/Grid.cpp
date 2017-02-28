@@ -8,6 +8,7 @@
 
 #include "Grid.h"
 #include <iostream>
+#include <string>
 
 Grid::Grid() {
    getRowsAndColsFromUser(rows,columns);
@@ -30,6 +31,7 @@ int Grid::getNumRows() {
 }
 
 void Grid::displayGrid(int xAgent, int yAgent, int xGoal, int yGoal) {
+   std::cout << std::string(75,'\n');
    for (int i = -1; i < rows; i++) {
       for (int j = -1; j < columns; j++) {
          if (j==-1 || i==-1) {
