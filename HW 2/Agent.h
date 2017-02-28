@@ -22,6 +22,7 @@ public:
    Agent();         //constructs an agent
    bool move();     //determines which direction to move agent to get closer to the goal, then uses move(char) to move in that
    bool move(char); //moves agent one square in the specified direction and returns true if the agent and goal positions match
+   void testA();    //promps user where to drop agent, then displays grid showing Agent where it has been bumped to on grid.
 //   void sense(); necessary for Project B
 //   int decide();
 //   double act();

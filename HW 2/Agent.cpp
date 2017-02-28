@@ -9,10 +9,8 @@
 #include "Agent.h"
 #include <random>
 #include <ctime>
-
 #include <iostream>
-
-#include <curses.h>
+#include <string>
 
 Agent::Agent() {
    //construct an agent
@@ -96,4 +94,34 @@ bool Agent::move() {
          return this->move('a');
       }
    }
+}
+
+void Agent::testA() {
+   //ask where to place agent
+   std::cout << std::string(75,'\n');
+   std::cout << "Where would you like to place the agent?" << std::endl;
+   std::cout << "x: ";
+   std::cin >> pos.x;
+   std::cout << "y: ";
+   std::cin >> pos.y;
+   
+   //if x position is too large for grid, bring back into grid (not necessarily up against the wall)
+   if (pos.x > map.getNumCols()) {
+      pos.x = pos.x%map.getNumCols();
+   }
+   //if x position is too small for grid, bring back into grid (not necessarily up against the wall)
+   if (pos.x < 0) {
+      pos.x = (-pos.x)%map.getNumCols();
+   }
+   //if y position is too large for grid, bring back into grid (not necessarily up against the wall)
+   if (pos.y > map.getNumRows()) {
+      pos.y = pos.y%map.getNumRows();
+   }
+   //if y position is too small for grid, bring back into grid (not necessarily up against the wall)
+   if (pos.y < 0) {
+      pos.y = (-pos.y)%map.getNumRows();
+   }
+   
+   //udate grid display
+   map.displayGrid(pos.x, pos.y, endGoal.getPosition().x, endGoal.getPosition().y);
 }
