@@ -9,6 +9,7 @@
 #include "Goal.h"
 
 Goal::Goal(int xCoord,int yCoord) {
+   //create specified position
    pos = Position(xCoord,yCoord);
 }
 

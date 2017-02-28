@@ -12,11 +12,11 @@
 #include "Position.h"
 
 class Goal {
-   Position pos;
+   Position pos;                      //position of the goal
    
 public:
-   Goal(int xCoord=-1,int yCoord=-1);
-   Position getPosition();
+   Goal(int xCoord=-1,int yCoord=-1); //construct a goal with a specified position
+   Position getPosition();            //return the position of the goal
 };
 
 #endif /* Goal_h */
