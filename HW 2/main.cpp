@@ -29,8 +29,10 @@ int main() {
 
    if (controlMode == 1) {
       testB(&Bond); //manual mode
-   } else {
+   } else if (controlMode == 2){
       testC(&Bond); //auto mode
+   } else {
+      Bond.testA(); //strand agent
    }
    
    return 0;
@@ -94,8 +96,9 @@ int promptForControlMode() {
    
    cout << string(75,'\n');
    cout << "How would you like to proceed?" << endl;
-   cout << "\t1. Manual Control Mode" << endl;
-   cout << "\t2. Rule of Thumb Control Mode" << endl;
+   cout << "\t1. Manual Control Mode (testB)" << endl;
+   cout << "\t2. Rule of Thumb Control Mode (testC)" << endl;
+   cout << "\t3. Drop Agent in middle of nowhere (testA)" << endl;
    cout << "Enter your selection: ";
    cin >> input;
    
