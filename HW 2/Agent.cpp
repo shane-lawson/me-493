@@ -124,4 +124,6 @@ void Agent::testA() {
    
    //udate grid display
    map.displayGrid(pos.x, pos.y, endGoal.getPosition().x, endGoal.getPosition().y);
+   
+   std::cout << std::endl;
 }
