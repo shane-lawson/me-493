@@ -17,6 +17,7 @@ class Position {
    
 public:
    Position(int xCoord=-1, int yCoord=-1); //constructs a specified position
+   bool operator==(const Position&) const;         //overload ==
    friend class Agent;                     //friend allows the agent to interact with this directly without making data members public
 };
 

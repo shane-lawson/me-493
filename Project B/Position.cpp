@@ -13,3 +13,12 @@ Position::Position(int xCoord, int yCoord) {
    x = xCoord;
    y = yCoord;
 }
+
+bool Position::operator==(const Position &pos) const{
+   if (this->x == pos.x) {
+      if (this->y == pos.y) {
+         return true;
+      }
+   }
+   return false;
+}
