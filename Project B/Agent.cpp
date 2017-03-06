@@ -12,7 +12,7 @@
 #include <iostream>
 #include <string>
 
-Agent::Agent() {
+Agent::Agent(Grid* gridIn) {
    //construct an agent
    //seed random numbers only once when class is first initialized
    static bool seeded = false;
@@ -21,15 +21,14 @@ Agent::Agent() {
       seeded = true;
    }
    
-   //create goal randomly within grid
-   endGoal = Goal(rand()%map.getNumCols(),rand()%map.getNumRows());
-
+   map = gridIn;
+   
    //place agent in random spot
-   pos.x = rand()%map.getNumCols();
-   pos.y = rand()%map.getNumRows();
+   pos.x = rand()%map->getNumCols();
+   pos.y = rand()%map->getNumRows();
 }
 
-bool Agent::move(char direction) {
+void Agent::move(char direction) {
    //if allowed, move agent in specified direction
    switch (direction) {
       case 'w':
@@ -40,7 +39,7 @@ bool Agent::move(char direction) {
          break;
       case 's':
       case 'S':
-         if (pos.y+1 < map.getNumRows()) {
+         if (pos.y+1 < map->getNumRows()) {
             pos.y++;
          }
          break;
@@ -52,7 +51,7 @@ bool Agent::move(char direction) {
          break;
       case 'd':
       case 'D':
-         if (pos.x+1 < map.getNumCols()) {
+         if (pos.x+1 < map->getNumCols()) {
             pos.x++;
          }
          break;
@@ -61,69 +60,51 @@ bool Agent::move(char direction) {
          break;
    }
 
-   //get position of goal
-   Position goalPos = endGoal.getPosition();
-   
    //update the display with the agent and goal positions
-   map.displayGrid(pos.x, pos.y, goalPos.x, goalPos.y);
-   
-   //if agent and goal positions match, then success!
-   if (pos.x == goalPos.x && pos.y == goalPos.y) {
-      std::cout << std::endl << "Success!" << std::endl;
-      return true;
-   }
-   return false;
+   map->displayGrid(pos.x, pos.y);
 }
 
-bool Agent::move() {
+void Agent::move() {
    //get goal position
-   Position goalPos = endGoal.getPosition();
+   Position goalPos = map->getGoalPosition();
    
    //move agent toward the row containing the goal, if not there already
    if (goalPos.y != pos.y) {
       if (goalPos.y - pos.y > 0) {
-         return this->move('s');
+         this->move('s');
       } else {
-         return this->move('w');
+         this->move('w');
       }
    } else {
       //move agent toward the column containing the goal
       if (goalPos.x - pos.x > 0) {
-         return this->move('d');
+         this->move('d');
       } else {
-         return this->move('a');
+         this->move('a');
       }
    }
 }
 
 void Agent::testA() {
-   //ask where to place agent
-   std::cout << std::string(75,'\n');
-   std::cout << "Where would you like to place the agent?" << std::endl;
-   std::cout << "x: ";
-   std::cin >> pos.x;
-   std::cout << "y: ";
-   std::cin >> pos.y;
-   
    //if x position is too large for grid, bring back into grid (not necessarily up against the wall)
-   if (pos.x > map.getNumCols()) {
-      pos.x = pos.x%map.getNumCols();
+   if (pos.x > map->getNumCols()) {
+      pos.x = pos.x%map->getNumCols();
    }
    //if x position is too small for grid, bring back into grid (not necessarily up against the wall)
    if (pos.x < 0) {
-      pos.x = (-pos.x)%map.getNumCols();
+      pos.x = (-pos.x)%map->getNumCols();
    }
    //if y position is too large for grid, bring back into grid (not necessarily up against the wall)
-   if (pos.y > map.getNumRows()) {
-      pos.y = pos.y%map.getNumRows();
+   if (pos.y > map->getNumRows()) {
+      pos.y = pos.y%map->getNumRows();
    }
    //if y position is too small for grid, bring back into grid (not necessarily up against the wall)
    if (pos.y < 0) {
-      pos.y = (-pos.y)%map.getNumRows();
+      pos.y = (-pos.y)%map->getNumRows();
    }
    
-   //udate grid display
-   map.displayGrid(pos.x, pos.y, endGoal.getPosition().x, endGoal.getPosition().y);
+   //update grid display
+   map->displayGrid(pos.x, pos.y);
    
    std::cout << std::endl;
 }
