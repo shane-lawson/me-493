@@ -12,6 +12,8 @@
 #include <iostream>
 #include <string>
 
+#define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
+
 Agent::Agent(Grid* gridIn) {
    //construct an agent
    //seed random numbers only once when class is first initialized
@@ -26,6 +28,8 @@ Agent::Agent(Grid* gridIn) {
    //place agent in random spot
    pos.x = rand()%map->getNumCols();
    pos.y = rand()%map->getNumRows();
+   
+   startPos = pos;
 }
 
 void Agent::move(char direction) {
@@ -59,9 +63,8 @@ void Agent::move(char direction) {
       default:
          break;
    }
-
-   //update the display with the agent and goal positions
-   map->displayGrid(pos.x, pos.y);
+   //run test to ensure agent has not left gridspace
+   this->testA();
 }
 
 void Agent::move() {
@@ -103,8 +106,55 @@ void Agent::testA() {
       pos.y = (-pos.y)%map->getNumRows();
    }
    
-   //update grid display
-   map->displayGrid(pos.x, pos.y);
-   
    std::cout << std::endl;
+}
+
+int Agent::decide() {
+   //epsilon (do random)
+   if (SLRAND <= epsilon) {
+      return rand()%4;
+   } else {
+      //1-epsilon (do greedy)
+      return map->getMaxAction(pos);
+   }
+}
+
+void Agent::act(int move){
+   switch (move) {
+      case 0:
+         this->move('w');
+         break;
+      case 1:
+         this->move('a');
+         break;
+      case 2:
+         this->move('s');
+         break;
+      case 3:
+         this->move('d');
+      default:
+         break;
+   }
+}
+
+bool Agent::react(int action) {
+   return map->updateQTable(pos, action);
+}
+
+void Agent::runCycle() {
+   int selectedAction = this->decide();
+   bool found = this->react(selectedAction);
+   this->act(selectedAction);
+   if (found) {
+      this->reset();
+   }
+}
+
+void Agent::reset() {
+   pos = startPos;
+}
+
+void Agent::displayGrid() {
+   //update the display with the agent and goal positions
+   map->displayGrid(pos.x, pos.y);
 }
