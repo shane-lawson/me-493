@@ -12,6 +12,8 @@
 #include <random>
 #include <ctime>
 
+#define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
+
 Grid::Grid() {
    //construct a grid
    //seed random numbers only once when class is first initialized
@@ -25,6 +27,23 @@ Grid::Grid() {
    
    //create goal randomly within grid
    endGoal = Goal(rand()%columns,rand()%rows);
+   
+   //populate qTable
+   std::vector<double> actions;
+   std::vector<std::vector<double>> yPos;
+   
+   //give random, near zero values for each action
+   for (int k = 0; k < 4; k++) {
+      actions.push_back(0.01*SLRAND);
+   }
+   //copy actions for each y position
+   for (int j = 0; j < rows; j++) {
+      yPos.push_back(actions);
+   }
+   //copy y positions for each x positionr
+   for (int i = 0; i < columns; i++) {
+      qTable.push_back(yPos);
+   }
 }
 
 void Grid::getRowsAndColsFromUser(int& row, int& column) {
@@ -69,6 +88,7 @@ void Grid::displayGrid(int xAgent, int yAgent) {
    for (int i = -1; i <= columns; i++) {
       std::cout << "#";
    }
+   std::cout << std::endl << "Found: " << goalFound << "\t";
 }
 
 Position Grid::getGoalPosition() {
@@ -77,12 +97,78 @@ Position Grid::getGoalPosition() {
 
 int Grid::getReward(Position pos) {
    if (pos == endGoal.getPosition()) {
+      goalFound++;
       return 100;
    } else {
       return -1;
    }
 }
 
-void Grid::addAgentStartPos(Position agentPos) {
-   agentStartPos = agentPos;
+bool Grid::updateQTable(Position state, int action) {
+   Position nextState = state;
+   switch (action) {
+      case 0:
+         if (nextState.y-1 >= 0) {
+            nextState.y--;
+         }
+         break;
+      case 1:
+         if (nextState.x-1 >= 0) {
+            nextState.x--;
+         }
+         break;
+      case 2:
+         if (nextState.y+1 < rows) {
+            nextState.y++;
+         }
+         break;
+      case 3:
+         if (nextState.x+1 < columns) {
+            nextState.x++;
+         }
+      default:
+         break;
+   }
+   qTable.at(state.x).at(state.y).at(action) = qTable.at(state.x).at(state.y).at(action) + alpha*(this->getReward(nextState) +gamma*this->getMaxValue(&qTable.at(nextState.x).at(nextState.y)) -qTable.at(state.x).at(state.y).at(action));
+   
+   if (nextState == endGoal.getPosition()) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+double Grid::getMaxValue(std::vector<double>* pQTable) {
+   double maxValue = 0.0;
+   for (int i = 0; i < pQTable->size(); i++) {
+      if (pQTable->at(i) > maxValue) {
+         maxValue = pQTable->at(i);
+      }
+   }
+   return maxValue;
+}
+
+int Grid::getMaxAction(Position pos) {
+   double maxValue = -99999;
+   int maxAction = -1;
+   for (int i = 0; i < 4; i++) {
+      if (qTable.at(pos.x).at(pos.y).at(i) > maxValue) {
+         maxValue = qTable.at(pos.x).at(pos.y).at(i);
+         maxAction = i;
+      }
+   }
+
+   //solve issue with agent sticking to wall because all actions have equal values, and "max" is action into wall, when all actions are equal, a random is chosen
+   int same = 0;
+   for (int i = 0; i < 4; i++) {
+      if (qTable.at(pos.x).at(pos.y).at(i) == maxValue) {
+         same++;
+      }
+   }
+   if (same == 4) {
+      return rand()%4;
+   }
+   //end sticky bug solution
+   
+   return maxAction;
 }

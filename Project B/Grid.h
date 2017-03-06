@@ -10,14 +10,20 @@
 #define Grid_h
 
 #include "Goal.h"
+#include "Position.h"
+#include <vector>
 
 class Grid {
    int rows;                               //number of rows
    int columns;                            //number of columns
    Goal endGoal;
-   Position agentStartPos;
+   std::vector<std::vector<std::vector<double>>> qTable;
+   double alpha = 0.1;
+   double gamma = 0.1;
+   int goalFound = 0;
    
    void getRowsAndColsFromUser(int&,int&); //prompts user for size of grid and updates values by reference
+   double getMaxValue(std::vector<double>*);
 public:
    Grid();                                 //constructs a grid
    int getNumRows();                       //returns the number of rows contained in the grid
@@ -25,8 +31,8 @@ public:
    void displayGrid(int,int);      //outputs the grid, agent position, and goal position to the console
    Position getGoalPosition();             //returns goal position for hard coded rule of thumb navigation
    int getReward(Position);             //returns the reward for a given position
-   void addAgentStartPos(Position);
-   
+   bool updateQTable(Position,int);
+   int getMaxAction(Position);
 };
 
 #endif /* Grid_h */
