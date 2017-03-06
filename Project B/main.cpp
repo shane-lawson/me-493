@@ -7,10 +7,14 @@
 //
 
 #include <iostream>
-using namespace std;
+#include "Agent.h"
+#include "Grid.h"
+using namespace std; 
 
 int main() {
    // insert code here...
    std::cout << "Magical butterflies and unicorns." << endl;
-    return 0;
+   Grid gridworld;
+   Agent Bond(&gridworld);
+   return 0;
 }
