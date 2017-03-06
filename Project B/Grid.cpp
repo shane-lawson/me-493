@@ -9,9 +9,22 @@
 #include "Grid.h"
 #include <iostream>
 #include <string>
+#include <random>
+#include <ctime>
 
 Grid::Grid() {
+   //construct a grid
+   //seed random numbers only once when class is first initialized
+   static bool seeded = false;
+   if(!seeded){
+      srand((int)time(NULL));
+      seeded = true;
+   }
+   
    getRowsAndColsFromUser(rows,columns);
+   
+   //create goal randomly within grid
+   endGoal = Goal(rand()%columns,rand()%rows);
 }
 
 void Grid::getRowsAndColsFromUser(int& row, int& column) {
@@ -32,7 +45,7 @@ int Grid::getNumRows() {
    return rows;
 }
 
-void Grid::displayGrid(int xAgent, int yAgent, int xGoal, int yGoal) {
+void Grid::displayGrid(int xAgent, int yAgent) {
    for (int i = -1; i < rows; i++) {
       for (int j = -1; j < columns; j++) {
          if (j==-1 || i==-1) {
@@ -41,10 +54,10 @@ void Grid::displayGrid(int xAgent, int yAgent, int xGoal, int yGoal) {
          } else if (j==xAgent && i==yAgent) {
             //if at agent position, show agent
             std::cout << "A";
-         } else if (j==xGoal && i==yGoal) {
+         } else if (j==endGoal.getPosition().x && i==endGoal.getPosition().y) {
             //if at goal position, show goal
             std::cout << "G";
-         }else {
+         } else {
             //everywhere else, show empty space
             std::cout << " ";
          }
@@ -56,4 +69,20 @@ void Grid::displayGrid(int xAgent, int yAgent, int xGoal, int yGoal) {
    for (int i = -1; i <= columns; i++) {
       std::cout << "#";
    }
+}
+
+Position Grid::getGoalPosition() {
+   return endGoal.getPosition();
+}
+
+int Grid::getReward(Position pos) {
+   if (pos == endGoal.getPosition()) {
+      return 100;
+   } else {
+      return -1;
+   }
+}
+
+void Grid::addAgentStartPos(Position agentPos) {
+   agentStartPos = agentPos;
 }
