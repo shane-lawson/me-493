@@ -19,7 +19,7 @@ class Grid {
    Goal endGoal;
    std::vector<std::vector<std::vector<double>>> qTable;
    double alpha = 0.1;
-   double gamma = 0.1;
+   double gamma = 0.9;
    int goalFound = 0;
    
    void getRowsAndColsFromUser(int&,int&); //prompts user for size of grid and updates values by reference
