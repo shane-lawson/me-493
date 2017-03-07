@@ -28,6 +28,7 @@ Grid::Grid() {
    //create goal randomly within grid
    endGoal = Goal(rand()%columns,rand()%rows);
    
+   //fill Q table
    populateQTable();
 }
 
@@ -51,6 +52,7 @@ void Grid::populateQTable() {
 }
 
 void Grid::resetQTable() {
+   //clear Q table and refill
    qTable.clear();
    populateQTable();
 }
@@ -73,7 +75,7 @@ int Grid::getNumRows() {
    return rows;
 }
 
-void Grid::displayGrid(int xAgent, int yAgent) {
+void Grid::displayGrid(int xAgent, int yAgent) { //not used, HW 2 artifact
    for (int i = -1; i < rows; i++) {
       for (int j = -1; j < columns; j++) {
          if (j==-1 || i==-1) {
@@ -105,15 +107,17 @@ Position Grid::getGoalPosition() {
 }
 
 int Grid::getReward(Position pos) {
+   //if position is goal, 100, else -1
    if (pos == endGoal.getPosition()) {
       goalFound++;
       return 100;
    } else {
-      return 0;
+      return -1;
    }
 }
 
 bool Grid::updateQTable(Position state, int action) {
+   //figure out what next state is, if it is allowed
    Position nextState = state;
    switch (action) {
       case 0:
@@ -138,11 +142,13 @@ bool Grid::updateQTable(Position state, int action) {
       default:
          break;
    }
+   //use current state and next state to do the Q equation calculation
    qTable.at(state.x).at(state.y).at(action) = qTable.at(state.x).at(state.y).at(action) + alpha*(this->getReward(nextState) +gamma*this->getMaxValue(&qTable.at(nextState.x).at(nextState.y)) -qTable.at(state.x).at(state.y).at(action));
    
    //run test D to make sure no q values are greater than the goal reward.
    this->testD();
    
+   //return true if goal is found
    if (nextState == endGoal.getPosition()) {
       return true;
    } else {
@@ -151,6 +157,7 @@ bool Grid::updateQTable(Position state, int action) {
 }
 
 double Grid::getMaxValue(std::vector<double>* pQTable) {
+   //loop through vector and identify highest value
    double maxValue = 0.0;
    for (int i = 0; i < pQTable->size(); i++) {
       if (pQTable->at(i) > maxValue) {
@@ -161,6 +168,7 @@ double Grid::getMaxValue(std::vector<double>* pQTable) {
 }
 
 int Grid::getMaxAction(Position pos) {
+   //loop through vector for actions at a position and identify the index with highest value
    double maxValue = -99999;
    int maxAction = -1;
    for (int i = 0; i < 4; i++) {
