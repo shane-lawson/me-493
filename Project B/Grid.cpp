@@ -14,6 +14,8 @@
 #include <assert.h>
 #include <cmath>
 
+#define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
+
 Grid::Grid() {
    //construct a grid
    //seed random numbers only once when class is first initialized
@@ -55,6 +57,7 @@ void Grid::resetQTable() {
    //clear Q table and refill
    qTable.clear();
    populateQTable();
+   goalFound = 0;
 }
 
 void Grid::getRowsAndColsFromUser(int& row, int& column) {
@@ -109,7 +112,6 @@ Position Grid::getGoalPosition() {
 int Grid::getReward(Position pos) {
    //if position is goal, 100, else -1
    if (pos == endGoal.getPosition()) {
-      goalFound++;
       return 100;
    } else {
       return -1;
@@ -145,11 +147,14 @@ bool Grid::updateQTable(Position state, int action) {
    //use current state and next state to do the Q equation calculation
    qTable.at(state.x).at(state.y).at(action) = qTable.at(state.x).at(state.y).at(action) + alpha*(this->getReward(nextState) +gamma*this->getMaxValue(&qTable.at(nextState.x).at(nextState.y)) -qTable.at(state.x).at(state.y).at(action));
    
+   previousState = state;
+   
    //run test D to make sure no q values are greater than the goal reward.
    this->testD();
    
    //return true if goal is found
    if (nextState == endGoal.getPosition()) {
+      goalFound++;
       return true;
    } else {
       return false;
@@ -177,7 +182,7 @@ int Grid::getMaxAction(Position pos) {
          maxAction = i;
       }
    }
-
+   
    //solve issue with agent sticking to wall because all actions have equal values, and "max" is action into wall, when all actions are equal, a random is chosen
    int same = 0;
    for (int i = 0; i < 4; i++) {
@@ -190,6 +195,100 @@ int Grid::getMaxAction(Position pos) {
    }
    //end sticky bug solution
    
+   return maxAction;
+}
+
+int Grid::getMaxActionG(Position pos) {
+   //loop through vector for actions at a position and identify the index with highest value
+   Position proposedMove = pos;
+   double maxValue = -99999;
+   int maxAction = -1;
+   for (int i = 0; i < 4; i++) {
+      if (qTable.at(pos.x).at(pos.y).at(i) > maxValue) {
+
+         //check that proposed move is not backward
+         switch (i) {
+            case 0:
+               proposedMove.y--;
+               break;
+            case 1:
+               proposedMove.x--;
+               break;
+            case 2:
+               proposedMove.y++;
+               break;
+            case 3:
+               proposedMove.x++;
+               break;
+            default:
+               break;
+         }
+         
+         if (proposedMove == previousState) {
+            //don't allow it to pick that state
+         } else {
+            maxValue = qTable.at(pos.x).at(pos.y).at(i);
+            maxAction = i;
+         }
+      }
+      
+      //epsilon (do random)
+      if (SLRAND <= 0.05) {
+         do{
+            proposedMove = previousState;
+            int maxAction = rand()%4;
+            switch (maxAction) {
+               case 0:
+                  proposedMove.y--;
+                  break;
+               case 1:
+                  proposedMove.x--;
+                  break;
+               case 2:
+                  proposedMove.y++;
+                  break;
+               case 3:
+                  proposedMove.x++;
+                  break;
+               default:
+                  break;
+            }
+         } while ( proposedMove == previousState );
+      }
+}
+   
+   //solve issue with agent sticking to wall because all actions have equal values, and "max" is action into wall, when all actions are equal, a random is chosen
+   
+   int same = 0;
+   for (int i = 0; i < 4; i++) {
+      if (qTable.at(pos.x).at(pos.y).at(i) == maxValue) {
+         same++;
+      }
+   }
+   if (same == 4) {
+      do {
+         proposedMove = previousState;
+         int maxAction = rand()%4;
+         switch (maxAction) {
+            case 0:
+               proposedMove.y--;
+               break;
+            case 1:
+               proposedMove.x--;
+               break;
+            case 2:
+               proposedMove.y++;
+               break;
+            case 3:
+               proposedMove.x++;
+               break;
+            default:
+               break;
+         }
+      } while ( proposedMove == previousState );
+   }
+   //end sticky bug solution
+
    return maxAction;
 }
 
@@ -208,4 +307,8 @@ int Grid::getOptimalNumOfMoves(Position pos) {
    //return sum of x direction moves and y direction moves for optimal path
    //need some sort of buffer/threshold +2?
    return (abs(pos.x-endGoal.getPosition().x) + abs(pos.y-endGoal.getPosition().y))+2;
+}
+
+int Grid::getNumTimesFound() {
+   return goalFound;
 }
