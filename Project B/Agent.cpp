@@ -168,7 +168,7 @@ void Agent::reset() {
       nearOptimal = true;
    }
    //data capture shenanigans
-   fout.open("moves.txt.", std::ofstream::out | std::ofstream::app);
+   fout.open("moves.txt", std::ofstream::out | std::ofstream::app);
    fout << moves << std::endl;
    fout.close();
    //reset number of moves, and move agent back to start
