@@ -143,27 +143,35 @@ void Agent::act(int move){
 }
 
 bool Agent::react(int action) {
+   //call for updating of the Q table
    return map->updateQTable(pos, action);
 }
 
 void Agent::runCycle() {
+   //decide what to do
    int selectedAction = this->decide();
+   //react to move
    bool found = this->react(selectedAction);
+   //move
    this->act(selectedAction);
+   //if goal is found, start over again
    if (found) {
       this->reset();
-      this->testE(); //ensure successfully reset
+      this->testE(); //ensure successful reset
    }
 }
 
 void Agent::reset() {
    std::ofstream fout;
+   //check if moves are near optimal
    if (moves < map->getOptimalNumOfMoves(startPos)) {
       nearOptimal = true;
    }
+   //data capture shenanigans
    fout.open("moves.txt.", std::ofstream::out | std::ofstream::app);
    fout << moves << std::endl;
    fout.close();
+   //reset number of moves, and move agent back to start
    moves = 0;
    pos = startPos;
 }
@@ -174,10 +182,12 @@ void Agent::displayGrid() {
 }
 
 void Agent::testE() {
+   //check that agent is at start and moves are zero
    assert(pos == startPos);
    assert(moves == 0);
 }
 
 void Agent::testF() {
+   //check that optimal path has been found
    assert(nearOptimal == true);
 }
