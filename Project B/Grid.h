@@ -33,6 +33,7 @@ public:
    int getReward(Position);             //returns the reward for a given position
    bool updateQTable(Position,int);
    int getMaxAction(Position);
+   void testD();
 };
 
 #endif /* Grid_h */

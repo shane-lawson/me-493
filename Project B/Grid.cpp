@@ -11,8 +11,7 @@
 #include <string>
 #include <random>
 #include <ctime>
-
-#define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
+#include <assert.h>
 
 Grid::Grid() {
    //construct a grid
@@ -34,7 +33,7 @@ Grid::Grid() {
    
    //give random, near zero values for each action
    for (int k = 0; k < 4; k++) {
-      actions.push_back(0.01*SLRAND);
+      actions.push_back(0.0);
    }
    //copy actions for each y position
    for (int j = 0; j < rows; j++) {
@@ -100,7 +99,7 @@ int Grid::getReward(Position pos) {
       goalFound++;
       return 100;
    } else {
-      return -1;
+      return 0;
    }
 }
 
@@ -130,6 +129,9 @@ bool Grid::updateQTable(Position state, int action) {
          break;
    }
    qTable.at(state.x).at(state.y).at(action) = qTable.at(state.x).at(state.y).at(action) + alpha*(this->getReward(nextState) +gamma*this->getMaxValue(&qTable.at(nextState.x).at(nextState.y)) -qTable.at(state.x).at(state.y).at(action));
+   
+   //run test D to make sure no q values are greater than the goal reward.
+   this->testD();
    
    if (nextState == endGoal.getPosition()) {
       return true;
@@ -171,4 +173,15 @@ int Grid::getMaxAction(Position pos) {
    //end sticky bug solution
    
    return maxAction;
+}
+
+void Grid::testD() {
+   //visit every spot in q table and assert that the value is less than max reward
+   for (int i = 0; i < qTable.size(); i++) {
+      for (int j = 0; j < qTable.at(i).size(); j++) {
+         for (int k = 0; k < qTable.at(i).at(j).size(); k++) {
+            assert(qTable.at(i).at(j).at(k) < 100);
+         }
+      }
+   }
 }
