@@ -34,6 +34,7 @@ public:
    bool updateQTable(Position,int);
    int getMaxAction(Position);
    void testD();
+   int getOptimalNumOfMoves(Position);
 };
 
 #endif /* Grid_h */
