@@ -24,6 +24,7 @@ class Grid {
    
    void getRowsAndColsFromUser(int&,int&); //prompts user for size of grid and updates values by reference
    double getMaxValue(std::vector<double>*);
+   void populateQTable();
 public:
    Grid();                                 //constructs a grid
    int getNumRows();                       //returns the number of rows contained in the grid
@@ -35,6 +36,7 @@ public:
    int getMaxAction(Position);
    void testD();
    int getOptimalNumOfMoves(Position);
+   void resetQTable();
 };
 
 #endif /* Grid_h */

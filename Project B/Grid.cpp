@@ -28,6 +28,10 @@ Grid::Grid() {
    //create goal randomly within grid
    endGoal = Goal(rand()%columns,rand()%rows);
    
+   populateQTable();
+}
+
+void Grid::populateQTable() {
    //populate qTable
    std::vector<double> actions;
    std::vector<std::vector<double>> yPos;
@@ -44,6 +48,11 @@ Grid::Grid() {
    for (int i = 0; i < columns; i++) {
       qTable.push_back(yPos);
    }
+}
+
+void Grid::resetQTable() {
+   qTable.clear();
+   populateQTable();
 }
 
 void Grid::getRowsAndColsFromUser(int& row, int& column) {
