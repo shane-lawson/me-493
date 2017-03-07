@@ -162,6 +162,7 @@ void Agent::runCycle() {
 }
 
 void Agent::reset() {
+   std::cout <<"Found in " << moves << " moves!" << std::endl;
    std::ofstream fout;
    //check if moves are near optimal
    if (moves < map->getOptimalNumOfMoves(startPos)) {
@@ -190,4 +191,22 @@ void Agent::testE() {
 void Agent::testF() {
    //check that optimal path has been found
    assert(nearOptimal == true);
+}
+
+void Agent::setEpsilon(double epsIn) {
+   epsilon = epsIn;
+}
+
+void Agent::testG() {
+   //decide what to do
+   int selectedAction = map->getMaxActionG(pos);
+   //react to move
+   bool found = this->react(selectedAction);
+   //move
+   this->act(selectedAction);
+   //if goal is found, start over again
+   if (found) {
+      this->reset();
+      this->testE(); //ensure successful reset
+   }
 }
