@@ -189,6 +189,6 @@ void Grid::testD() {
 
 int Grid::getOptimalNumOfMoves(Position pos) {
    //return sum of x direction moves and y direction moves for optimal path
-   //need some sort of buffer/threshold that adapts to grid size, num grid spaces divided by 50 yields +3 for 10x15 and +12 for 25x25. Adequate? Maybe.
+   //need some sort of buffer/threshold +2?
    return (abs(pos.x-endGoal.getPosition().x) + abs(pos.y-endGoal.getPosition().y))+2;
 }
