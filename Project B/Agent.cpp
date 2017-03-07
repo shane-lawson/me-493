@@ -11,6 +11,8 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <assert.h>
+#include <fstream>
 
 #define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
@@ -22,6 +24,8 @@ Agent::Agent(Grid* gridIn) {
       srand((int)time(NULL));
       seeded = true;
    }
+   
+   nearOptimal = false;
    
    map = gridIn;
    
@@ -63,6 +67,9 @@ void Agent::move(char direction) {
       default:
          break;
    }
+   
+   moves++;
+   
    //run test to ensure agent has not left gridspace
    this->testA();
 }
@@ -105,8 +112,6 @@ void Agent::testA() {
    if (pos.y < 0) {
       pos.y = (-pos.y)%map->getNumRows();
    }
-   
-   std::cout << std::endl;
 }
 
 int Agent::decide() {
@@ -147,14 +152,32 @@ void Agent::runCycle() {
    this->act(selectedAction);
    if (found) {
       this->reset();
+      this->testE(); //ensure successfully reset
    }
 }
 
 void Agent::reset() {
+   std::ofstream fout;
+   if (moves < map->getOptimalNumOfMoves(startPos)) {
+      nearOptimal = true;
+   }
+   fout.open("moves.txt.", std::ofstream::out | std::ofstream::app);
+   fout << moves << std::endl;
+   fout.close();
+   moves = 0;
    pos = startPos;
 }
 
 void Agent::displayGrid() {
    //update the display with the agent and goal positions
    map->displayGrid(pos.x, pos.y);
+}
+
+void Agent::testE() {
+   assert(pos == startPos);
+   assert(moves == 0);
+}
+
+void Agent::testF() {
+   assert(nearOptimal == true);
 }
