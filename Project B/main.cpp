@@ -17,13 +17,17 @@ int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
    Grid gridworld;
+   Agent Bond(&gridworld);
    
 //   int count = 0;
-   for (int j = 0; j < 30; j++) {
-      Agent Bond(&gridworld);
-      
-   for (int i = 0; i < 500000; i++) {
-      Bond.runCycle();
+//   double epsValue = 0.09;
+//   for (int k = 0; k<3; k++) {
+//      Bond.setEpsilon(epsValue);
+//      epsValue = epsValue - 0.04;
+//      for (int j = 0; j < 10; j++) {
+   
+         while (gridworld.getNumTimesFound() < 1000) {
+            Bond.runCycle();
 //      if (count > 100000 && count < 100200) {
 //         Bond.displayGrid();
 //         cout << i << endl;
@@ -33,9 +37,29 @@ int main() {
 //         count = 0;
 //      }
 //      count++;
+         }
+         Bond.testF();
+
+         gridworld.resetQTable();
+   
+   cout << "Done!" << endl;
+   
+   while (gridworld.getNumTimesFound() < 1000) {
+      Bond.testG();
+      //      if (count > 100000 && count < 100200) {
+//               Bond.displayGrid();
+      //         cout << i << endl;
+//               this_thread::sleep_for (chrono::milliseconds(100));
+      //      }
+      //      if (count > 100200) {
+      //         count = 0;
+      //      }
+      //      count++;
    }
    Bond.testF();
-
-   }
+   
+   
+//      }
+//   }
    return 0;
 }
