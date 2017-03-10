@@ -102,7 +102,7 @@ void Grid::displayGrid(int xAgent, int yAgent) { //not used, HW 2 artifact
    for (int i = -1; i <= columns; i++) {
       std::cout << "#";
    }
-   std::cout << std::endl << "Found: " << goalFound << "\t";
+   std::cout << std::endl;
 }
 
 Position Grid::getGoalPosition() {
