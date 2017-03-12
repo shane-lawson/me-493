@@ -7,6 +7,8 @@
 //
 
 #include <iostream>
+#include <thread>
+#include <chrono>
 #include "Agent.h"
 #include "Grid.h"
 
@@ -15,17 +17,26 @@ using namespace std;
 int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
+   bool success = false;
    Grid gridworld;
    Agent Bond(&gridworld);
    
+   Position position = Bond.getPosition();
    //heuristic method
-   for (int i = 0; i < 1000; i++) {
-      Bond.move();
-      Bond.displayGrid();
+   for (int i = 0; i < gridworld.getNumRows()*4; i++) {
+      success = Bond.move();
+      if ( !(position == Bond.getPosition()) ) {
+         Bond.displayGrid();
+         this_thread::sleep_for (chrono::milliseconds(250));
+      }
+      position = Bond.getPosition();
+      if (success) {
+         break;
+      }
    }
-   
+
    //q-learner method
-   while (gridworld.getNumTimesFound() < 1) {
+   while (gridworld.getNumTimesFound() < 1000) {
       Bond.runCycle();
    }
 
