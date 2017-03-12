@@ -84,6 +84,9 @@ void Grid::displayGrid(int xAgent, int yAgent) { //not used, HW 2 artifact
          if (j==-1 || i==-1) {
             //if at a wall position, show wall
             std::cout << "#";
+         } else if (j==wall.x && i==wall.y) {
+            //if at the blocking wall position
+            std::cout << "#";
          } else if (j==xAgent && i==yAgent) {
             //if at agent position, show agent
             std::cout << "A";
@@ -124,22 +127,30 @@ bool Grid::updateQTable(Position state, int action) {
    switch (action) {
       case 0:
          if (nextState.y-1 >= 0) {
-            nextState.y--;
+            if (nextState.y-1 != wall.y && nextState.x != wall.x) {
+               nextState.y--;
+            }
          }
          break;
       case 1:
          if (nextState.x-1 >= 0) {
-            nextState.x--;
+            if (nextState.x-1 != wall.x && nextState.y != wall.y) {
+               nextState.x--;
+            }
          }
          break;
       case 2:
          if (nextState.y+1 < rows) {
-            nextState.y++;
+            if (nextState.y+1 != wall.y && nextState.x != wall.x) {
+               nextState.y++;
+            }
          }
          break;
       case 3:
          if (nextState.x+1 < columns) {
-            nextState.x++;
+            if (nextState.x+1 != wall.x && nextState.y != wall.y) {
+               nextState.x++;
+            }
          }
       default:
          break;
@@ -311,4 +322,13 @@ int Grid::getOptimalNumOfMoves(Position pos) {
 
 int Grid::getNumTimesFound() {
    return goalFound;
+}
+
+void Grid::placeWall(int xPos) {
+   wall.y = endGoal.getPosition().y;
+   wall.x = xPos;
+}
+
+Position Grid::getWall() {
+   return wall;
 }

@@ -22,6 +22,7 @@ class Grid {
    double gamma = 0.9;                                   //gamma for Q value shenanigans
    int goalFound = 0;                                    //number of times goal is found
    Position previousState;
+   Position wall;
    
    void getRowsAndColsFromUser(int&,int&);               //prompts user for size of grid and updates values by reference
    double getMaxValue(std::vector<double>*);             //returns max value from vector in this case, action possibilities
@@ -40,6 +41,8 @@ public:
    int getOptimalNumOfMoves(Position);                   //calculations optimal number of moves given a starting position
    void resetQTable();                                   //clears Q table and reinitializes it
    int getNumTimesFound();
+   void placeWall(int);
+   Position getWall();
 };
 
 #endif /* Grid_h */

@@ -37,6 +37,8 @@ public:
    void reset();          //set moves to zero, and move agent back to starting position, also outputs number of moves to file, and checks if moves were near optimal
    void displayGrid();    //calls for the grid to be displayed on the console
    void setEpsilon(double); //allows main to set the epsilon value to vary it
+   void createWall();
+   Position getPosition();
 };
 
 #endif /* Agent_h */

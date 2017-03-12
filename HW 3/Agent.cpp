@@ -34,6 +34,8 @@ Agent::Agent(Grid* gridIn) {
    pos.y = rand()%map->getNumRows();
    
    startPos = pos;
+   
+   createWall();
 }
 
 bool Agent::move(char direction) {
@@ -42,25 +44,33 @@ bool Agent::move(char direction) {
       case 'w':
       case 'W':
          if (pos.y-1 >= 0) {
-            pos.y--;
+            if(pos.y-1 != map->getWall().y || pos.x != map->getWall().x) {
+               pos.y--;
+            }
          }
          break;
       case 's':
       case 'S':
          if (pos.y+1 < map->getNumRows()) {
-            pos.y++;
+            if(pos.y+1 != map->getWall().y || pos.x != map->getWall().x) {
+               pos.y++;
+            }
          }
          break;
       case 'a':
       case 'A':
          if (pos.x-1 >= 0) {
-            pos.x--;
+            if(pos.x-1 != map->getWall().x || pos.y != map->getWall().y) {
+               pos.x--;
+            }
          }
          break;
       case 'd':
       case 'D':
          if (pos.x+1 < map->getNumCols()) {
-            pos.x++;
+            if(pos.x+1 != map->getWall().x || pos.y != map->getWall().y) {
+               pos.x++;
+            }
          }
          break;
          
@@ -219,4 +229,12 @@ void Agent::testG() {
       this->reset();
       this->testE(); //ensure successful reset
    }
+}
+
+void Agent::createWall() {
+   map->placeWall(pos.x);
+}
+
+Position Agent::getPosition() {
+   return pos;
 }
