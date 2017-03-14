@@ -168,6 +168,7 @@ bool Agent::react(int action) {
 }
 
 void Agent::runCycle() {
+   assert(!(pos == map->getWall()));
    //decide what to do
    int selectedAction = this->decide();
    //react to move
@@ -215,20 +216,6 @@ void Agent::testF() {
 
 void Agent::setEpsilon(double epsIn) {
    epsilon = epsIn;
-}
-
-void Agent::testG() {
-   //decide what to do
-   int selectedAction = map->getMaxActionG(pos);
-   //react to move
-   bool found = this->react(selectedAction);
-   //move
-   this->act(selectedAction);
-   //if goal is found, start over again
-   if (found) {
-      this->reset();
-      this->testE(); //ensure successful reset
-   }
 }
 
 void Agent::createWall() {

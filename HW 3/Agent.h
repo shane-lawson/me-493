@@ -33,7 +33,6 @@ public:
    void act(int);         //move in a specified direction [using move(char)]
    bool react(int);       //update Q table based on action
    void runCycle();       //run a single decide, act, react cycle
-   void testG();          //run cycle with nonholonomic state considerations
    void reset();          //set moves to zero, and move agent back to starting position, also outputs number of moves to file, and checks if moves were near optimal
    void displayGrid();    //calls for the grid to be displayed on the console
    void setEpsilon(double); //allows main to set the epsilon value to vary it

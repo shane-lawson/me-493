@@ -127,38 +127,42 @@ bool Grid::updateQTable(Position state, int action) {
    switch (action) {
       case 0:
          if (nextState.y-1 >= 0) {
-            if (nextState.y-1 != wall.y && nextState.x != wall.x) {
+//            if (nextState.y-1 != wall.y && nextState.x != wall.x) {
                nextState.y--;
-            }
+//            }
          }
          break;
       case 1:
          if (nextState.x-1 >= 0) {
-            if (nextState.x-1 != wall.x && nextState.y != wall.y) {
+//            if (nextState.x-1 != wall.x && nextState.y != wall.y) {
                nextState.x--;
-            }
+//            }
          }
          break;
       case 2:
          if (nextState.y+1 < rows) {
-            if (nextState.y+1 != wall.y && nextState.x != wall.x) {
+//            if (nextState.y+1 != wall.y && nextState.x != wall.x) {
                nextState.y++;
-            }
+//            }
          }
          break;
       case 3:
          if (nextState.x+1 < columns) {
-            if (nextState.x+1 != wall.x && nextState.y != wall.y) {
+//            if (nextState.x+1 != wall.x && nextState.y != wall.y) {
                nextState.x++;
-            }
+//            }
          }
       default:
          break;
    }
    //use current state and next state to do the Q equation calculation
    qTable.at(state.x).at(state.y).at(action) = qTable.at(state.x).at(state.y).at(action) + alpha*(this->getReward(nextState) +gamma*this->getMaxValue(&qTable.at(nextState.x).at(nextState.y)) -qTable.at(state.x).at(state.y).at(action));
-   
-   previousState = state;
+  
+   //clear random accumulation of values for actions inside goal
+//   Position goal = endGoal.getPosition();
+//   for (int i = 0; i < 4; i++) {
+//      qTable.at(goal.x).at(goal.y).at(i) = 0;
+//   }
    
    //run test D to make sure no q values are greater than the goal reward.
    this->testD();
@@ -171,6 +175,7 @@ bool Grid::updateQTable(Position state, int action) {
       return false;
    }
 }
+
 
 double Grid::getMaxValue(std::vector<double>* pQTable) {
    //loop through vector and identify highest value
@@ -206,100 +211,6 @@ int Grid::getMaxAction(Position pos) {
    }
    //end sticky bug solution
    
-   return maxAction;
-}
-
-int Grid::getMaxActionG(Position pos) {
-   //loop through vector for actions at a position and identify the index with highest value
-   Position proposedMove = pos;
-   double maxValue = -99999;
-   int maxAction = -1;
-   for (int i = 0; i < 4; i++) {
-      if (qTable.at(pos.x).at(pos.y).at(i) > maxValue) {
-
-         //check that proposed move is not backward
-         switch (i) {
-            case 0:
-               proposedMove.y--;
-               break;
-            case 1:
-               proposedMove.x--;
-               break;
-            case 2:
-               proposedMove.y++;
-               break;
-            case 3:
-               proposedMove.x++;
-               break;
-            default:
-               break;
-         }
-         
-         if (proposedMove == previousState) {
-            //don't allow it to pick that state
-         } else {
-            maxValue = qTable.at(pos.x).at(pos.y).at(i);
-            maxAction = i;
-         }
-      }
-      
-      //epsilon (do random)
-      if (SLRAND <= 0.05) {
-         do{
-            proposedMove = previousState;
-            int maxAction = rand()%4;
-            switch (maxAction) {
-               case 0:
-                  proposedMove.y--;
-                  break;
-               case 1:
-                  proposedMove.x--;
-                  break;
-               case 2:
-                  proposedMove.y++;
-                  break;
-               case 3:
-                  proposedMove.x++;
-                  break;
-               default:
-                  break;
-            }
-         } while ( proposedMove == previousState );
-      }
-}
-   
-   //solve issue with agent sticking to wall because all actions have equal values, and "max" is action into wall, when all actions are equal, a random is chosen
-   
-   int same = 0;
-   for (int i = 0; i < 4; i++) {
-      if (qTable.at(pos.x).at(pos.y).at(i) == maxValue) {
-         same++;
-      }
-   }
-   if (same == 4) {
-      do {
-         proposedMove = previousState;
-         int maxAction = rand()%4;
-         switch (maxAction) {
-            case 0:
-               proposedMove.y--;
-               break;
-            case 1:
-               proposedMove.x--;
-               break;
-            case 2:
-               proposedMove.y++;
-               break;
-            case 3:
-               proposedMove.x++;
-               break;
-            default:
-               break;
-         }
-      } while ( proposedMove == previousState );
-   }
-   //end sticky bug solution
-
    return maxAction;
 }
 
