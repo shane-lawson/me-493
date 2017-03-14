@@ -17,7 +17,7 @@ class Grid {
    int rows;                                             //number of rows
    int columns;                                          //number of columns
    Goal endGoal;                                         //goal
-   std::vector<std::vector<std::vector<double>>> qTable; //nice, 3D Q table
+   std::vector<std::vector<std::vector<double> > > qTable; //nice, 3D Q table
    double alpha = 0.1;                                   //alpha for reward shenanigans
    double gamma = 0.9;                                   //gamma for Q value shenanigans
    int goalFound = 0;                                    //number of times goal is found
