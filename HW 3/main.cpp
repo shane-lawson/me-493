@@ -53,6 +53,7 @@ void testA(Agent* agent,Grid* grid) {
    } else {
       cout << "Test A failed!" << endl;
    }
+   this_thread::sleep_for (chrono::milliseconds(1000));
 }
 
 void testB(Agent* agent, Grid* grid) {
