@@ -37,7 +37,7 @@ Grid::Grid() {
 void Grid::populateQTable() {
    //populate qTable
    std::vector<double> actions;
-   std::vector<std::vector<double>> yPos;
+   std::vector<std::vector<double> > yPos;
    
    //give random, near zero values for each action
    for (int k = 0; k < 4; k++) {
