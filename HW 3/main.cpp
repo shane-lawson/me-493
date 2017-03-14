@@ -14,31 +14,51 @@
 
 using namespace std;
 
+void testA(Agent*,Grid*);
+void testB(Agent*,Grid*);
+
 int main() {
    // insert code here...
    cout << "Magical butterflies and unicorns." << endl;
-   bool success = false;
    Grid gridworld;
    Agent Bond(&gridworld);
    
-   Position position = Bond.getPosition();
+   testA(&Bond, &gridworld);
+
+   testB(&Bond, &gridworld);
+   
+    return 0;
+}
+
+void testA(Agent* agent,Grid* grid) {
+   bool success = false;
+   Position position = agent->getPosition();
+   int i;
+   
    //heuristic method
-   for (int i = 0; i < gridworld.getNumRows()*4; i++) {
-      success = Bond.move();
-      if ( !(position == Bond.getPosition()) ) {
-         Bond.displayGrid();
+   for (i = 0; i < grid->getNumRows()*4; i++) {
+      success = agent->move();
+      if ( !(position == agent->getPosition()) ) {
+         agent->displayGrid();
          this_thread::sleep_for (chrono::milliseconds(250));
       }
-      position = Bond.getPosition();
+      position = agent->getPosition();
       if (success) {
          break;
       }
    }
-
-   //q-learner method
-   while (gridworld.getNumTimesFound() < 1000) {
-      Bond.runCycle();
+   
+   if (i == grid->getNumRows()*4) {
+      cout << "Test A passed!" << endl;
+   } else {
+      cout << "Test A failed!" << endl;
    }
+}
 
-    return 0;
+void testB(Agent* agent, Grid* grid) {
+   //q-learner method
+   while (grid->getNumTimesFound() < 1000) {
+      agent->runCycle();
+   }
+   cout <<"Test B passed!" << endl;
 }
