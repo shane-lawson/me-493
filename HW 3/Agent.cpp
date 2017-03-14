@@ -88,7 +88,6 @@ bool Agent::move(char direction) {
 
    //if agent and goal positions match, then success!
    if (pos.x == goalPos.x && pos.y == goalPos.y) {
-      std::cout << std::endl << "Success!" << std::endl;
       return true;
    }
    return false;
