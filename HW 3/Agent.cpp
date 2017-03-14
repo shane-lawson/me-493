@@ -12,7 +12,6 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
-#include <fstream>
 
 #define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
@@ -183,15 +182,10 @@ void Agent::runCycle() {
 
 void Agent::reset() {
    std::cout <<"Found in " << moves << " moves!" << std::endl;
-   std::ofstream fout;
    //check if moves are near optimal
    if (moves < map->getOptimalNumOfMoves(startPos)) {
       nearOptimal = true;
    }
-   //data capture shenanigans
-   fout.open("moves.txt", std::ofstream::out | std::ofstream::app);
-   fout << moves << std::endl;
-   fout.close();
    //reset number of moves, and move agent back to start
    moves = 0;
    pos = startPos;
