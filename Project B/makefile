@@ -1,5 +1,5 @@
-a.out: main.o Position.o Grid.o Goal.o Agent.o
-	g++ main.o Position.o Grid.o Goal.o Agent.o
+projectB: main.o Position.o Grid.o Goal.o Agent.o
+	g++ -o projectB main.o Position.o Grid.o Goal.o Agent.o
 main.o: main.cpp
 	g++ -c main.cpp
 Position.o: Position.cpp
@@ -11,4 +11,4 @@ Goal.o: Goal.cpp
 Agent.o: Agent.cpp
 	g++ -c Agent.cpp
 clean:
-	rm *.o a.out
+	rm *.o projectB moves.txt
