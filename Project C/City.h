@@ -9,7 +9,7 @@
 #ifndef City_h
 #define City_h
 
-Class City {
+class City {
 
 };
 

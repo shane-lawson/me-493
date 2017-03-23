@@ -9,7 +9,7 @@
 #ifndef Path_h
 #define Path_h
 
-Class Path {
+class Path {
 
 };
 
