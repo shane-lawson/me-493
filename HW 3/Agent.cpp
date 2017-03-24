@@ -12,7 +12,6 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
-#include <fstream>
 
 #define SLRAND (double)rand()/RAND_MAX //rand between 0.0 and 1.0
 
@@ -88,7 +87,6 @@ bool Agent::move(char direction) {
 
    //if agent and goal positions match, then success!
    if (pos.x == goalPos.x && pos.y == goalPos.y) {
-      std::cout << std::endl << "Success!" << std::endl;
       return true;
    }
    return false;
@@ -168,6 +166,7 @@ bool Agent::react(int action) {
 }
 
 void Agent::runCycle() {
+   assert(!(pos == map->getWall()));
    //decide what to do
    int selectedAction = this->decide();
    //react to move
@@ -183,15 +182,10 @@ void Agent::runCycle() {
 
 void Agent::reset() {
    std::cout <<"Found in " << moves << " moves!" << std::endl;
-   std::ofstream fout;
    //check if moves are near optimal
    if (moves < map->getOptimalNumOfMoves(startPos)) {
       nearOptimal = true;
    }
-   //data capture shenanigans
-   fout.open("moves.txt", std::ofstream::out | std::ofstream::app);
-   fout << moves << std::endl;
-   fout.close();
    //reset number of moves, and move agent back to start
    moves = 0;
    pos = startPos;
@@ -215,20 +209,6 @@ void Agent::testF() {
 
 void Agent::setEpsilon(double epsIn) {
    epsilon = epsIn;
-}
-
-void Agent::testG() {
-   //decide what to do
-   int selectedAction = map->getMaxActionG(pos);
-   //react to move
-   bool found = this->react(selectedAction);
-   //move
-   this->act(selectedAction);
-   //if goal is found, start over again
-   if (found) {
-      this->reset();
-      this->testE(); //ensure successful reset
-   }
 }
 
 void Agent::createWall() {
