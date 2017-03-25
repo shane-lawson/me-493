@@ -9,8 +9,13 @@
 #ifndef World_h
 #define World_h
 
+#include "City.h"
+
 class World {
    
+public:
+   World();
+   double calcDistance(City,City);
 };
 
 #endif /* World_h */
