@@ -10,12 +10,16 @@
 #define World_h
 
 #include "City.h"
+#include <vector>
 
 class World {
+   std::vector<City> cities;
    
 public:
    World();
    double calcDistance(City,City);
+   
+   void showCities(); //for testing
 };
 
 #endif /* World_h */
