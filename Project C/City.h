@@ -15,7 +15,8 @@ class City {
    
 public:
    City();
-   double calcDistance(City);
+   
+   friend class World;
 };
 
 #endif /* City_h */

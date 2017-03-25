@@ -23,7 +23,3 @@ City::City() {
    xPos = SLRAND * 100.0;
    yPos = SLRAND * 100.0;
 }
-
-double City::calcDistance(City cityIn) {
-   return sqrt( (xPos-cityIn.xPos)*(xPos-cityIn.xPos) + (yPos-cityIn.yPos)*(yPos-cityIn.yPos) );
-}
