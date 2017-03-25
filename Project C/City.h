@@ -10,7 +10,12 @@
 #define City_h
 
 class City {
-
+   double xPos;
+   double yPos;
+   
+public:
+   City();
+   double calcDistance(City);
 };
 
 #endif /* City_h */
