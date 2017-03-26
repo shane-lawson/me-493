@@ -18,7 +18,10 @@ World::World() {
    }
 }
 
-double World::calcDistance(City cityLeft, City cityRight) {
+double World::calcDistance(int left, int right) {
+   City cityLeft = cities.at(left);
+   City cityRight = cities.at(right);
+   
    return sqrt( (cityLeft.xPos-cityRight.xPos)*(cityLeft.xPos-cityRight.xPos) + (cityLeft.yPos-cityRight.yPos)*(cityLeft.yPos-cityRight.yPos) );
 }
 
