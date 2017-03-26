@@ -17,7 +17,7 @@ class World {
    
 public:
    World();
-   double calcDistance(City,City);
+   double calcDistance(int,int);
    
    void showCities(); //for testing
 };
