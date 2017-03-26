@@ -17,7 +17,7 @@ class World {
    
 public:
    World();
-   double calcDistance(int,int);
+   double calcDistance(int,int); //determines the distance between two cities, meets LR_7
    
    void showCities(); //for testing
 };

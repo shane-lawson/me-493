@@ -18,7 +18,7 @@ World::World() {
    }
 }
 
-double World::calcDistance(int left, int right) {
+double World::calcDistance(int left, int right) { //mmets LR_7
    City cityLeft = cities.at(left);
    City cityRight = cities.at(right);
    
