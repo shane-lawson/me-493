@@ -9,6 +9,7 @@
 #ifndef City_h
 #define City_h
 
+//representation of a city, meets LR_1
 class City {
    double xPos;
    double yPos;
