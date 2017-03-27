@@ -9,8 +9,20 @@
 #ifndef Path_h
 #define Path_h
 
-class Path {
+#include "World.h"
+#include <vector>
 
+//represents a "policy" containing the order which it will visit each city, meets LR_3
+class Path {
+   std::vector<int> cities;
+   double totalDistance;
+   World* world;
+   
+public:
+   Path();
+   double calcPathDistance();
+   void mutate(int);                   //mutates policy by swapping orders of cities visited, meets LR_4
+   void ensureNoDuplicateCities();  //asserting test function, meets LR_6
 };
 
 #endif /* Path_h */
