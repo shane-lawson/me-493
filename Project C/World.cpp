@@ -11,18 +11,23 @@
 
 #include <iostream>
 
-World::World() {
-   for (int i = 0; i < 100; i++) {
+World::World(int i) {
+   for (int j = 0; j < i; j++) {
       City tempCity;
       cities.push_back(tempCity);
    }
+   numCities = i;
 }
 
-double World::calcDistance(int left, int right) { //mmets LR_7
+double World::calcDistance(int left, int right) { //meets LR_7
    City cityLeft = cities.at(left);
    City cityRight = cities.at(right);
    
    return sqrt( (cityLeft.xPos-cityRight.xPos)*(cityLeft.xPos-cityRight.xPos) + (cityLeft.yPos-cityRight.yPos)*(cityLeft.yPos-cityRight.yPos) );
+}
+
+int World::getNumCities() {
+   return (int)cities.size();
 }
 
 void World::showCities() {

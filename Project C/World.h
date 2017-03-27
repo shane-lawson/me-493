@@ -14,10 +14,12 @@
 
 class World {
    std::vector<City> cities;
+   int numCities;
    
 public:
-   World();
+   World(int i=100);
    double calcDistance(int,int); //determines the distance between two cities, meets LR_7
+   int getNumCities();
    
    void showCities(); //for testing
 };
