@@ -44,6 +44,7 @@ Path::Path(World* in) {
          cities.push_back(nextCity);
       }
    }
+   this->ensureNoDuplicateCities();
 }
 
 double Path::calcPathDistance() { //calculates total distance, meets LR_8
@@ -67,13 +68,15 @@ void Path::mutate(int swaps) { //mutates slighty, meets LR_4
          cities.at(second) = tempCity;
       }
    }
+   this->ensureNoDuplicateCities();
 }
 
 void Path::ensureNoDuplicateCities() {
-   int numFound = 0;
+   int numFound;
    int vectorSize = (int)cities.size();
    
    for (int i = 0; i < vectorSize; i++) {
+      numFound = 0;
       for (int j = 0; j < vectorSize; j++) {
          if (cities.at(j) == i) {
             numFound++;
