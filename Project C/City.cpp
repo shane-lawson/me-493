@@ -23,3 +23,8 @@ City::City() {
    xPos = SLRAND * 100.0;
    yPos = SLRAND * 100.0;
 }
+
+void City::setPosition(double x, double y) {
+   xPos = x;
+   yPos = y;
+}

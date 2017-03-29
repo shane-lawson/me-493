@@ -16,6 +16,7 @@ class City {
    
 public:
    City();
+   void setPosition(double,double);
    
    friend class World;
 };
