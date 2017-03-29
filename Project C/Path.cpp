@@ -24,9 +24,11 @@ Path::Path(World* in) {
    world = in;
    
    //initialize with randomly selected path
-   int numCities = world->numCities();
+   int numCities = world->getNumCities();
    int nextCity;
    bool found;
+   
+   cities.push_back(0); //starts from the same city each time, meets LR_5
 
    while (cities.size() < numCities) {
       found = false;
@@ -58,9 +60,12 @@ void Path::mutate(int swaps) { //mutates slighty, meets LR_4
    for (int i = 0 ; i < swaps; i++) {
       int first = rand() % numCities;
       int second = rand() % numCities;
-      tempCity = cities.at(first);
-      cities.at(first) = cities.at(second);
-      cities.at(second) = tempCity;
+      
+      if (first != 0 && second != 0) { //ensure that the first position is never swapped so that LR_5 continues to be met
+         tempCity = cities.at(first);
+         cities.at(first) = cities.at(second);
+         cities.at(second) = tempCity;
+      }
    }
 }
 
@@ -82,4 +87,5 @@ void Path::showPath() {
    for (int i = 0; i < cities.size(); i++) {
       std::cout << cities.at(i) << std::endl;
    }
+   std::cout << this->calcPathDistance() << std::endl;
 }
