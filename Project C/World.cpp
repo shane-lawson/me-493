@@ -12,9 +12,17 @@
 #include <iostream>
 
 World::World(int i) {
-   for (int j = 0; j < i; j++) {
+   if (i == 10) {
       City tempCity;
-      cities.push_back(tempCity);
+      for (int j = 0; j < i; j++) {
+         tempCity.setPosition(j, 1);
+         cities.push_back(tempCity);
+      }
+   } else {
+      for (int j = 0; j < i; j++) {
+         City tempCity;
+         cities.push_back(tempCity);
+      }
    }
    numCities = i;
 }
@@ -31,7 +39,7 @@ int World::getNumCities() {
 }
 
 void World::showCities() {
-   for (int i = 0; i<100; i++) {
+   for (int i = 0; i < cities.size(); i++) {
       std::cout << cities.at(i).xPos << "\t" << cities.at(i).yPos << std::endl;
    }
 }
