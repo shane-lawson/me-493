@@ -10,13 +10,19 @@
 #include "World.h"
 #include "Path.h"
 #include <vector>
+#include <cmath>
+
+#include <fstream>
+
 using namespace std;
 
 //main function serves the purpose of an "agent" which controls decisions, meets LR_2
 int main() {
    cout << "Magical unicorns and butterflies." << endl;
    
-   World newWorld(10);
+   ofstream fout;
+   
+   World newWorld(50);
    vector<Path> paths;
    vector<Path> nextGen;
    
@@ -28,16 +34,15 @@ int main() {
    }
    
    newWorld.showCities();
-   for (int i = 0; i < 5; i++) {
-      
-      paths.at(i).showPath();
-      cout << endl;
+   for (int i = 0; i < numCities/2; i++) {
+      cout << paths.at(i).calcPathDistance() << endl;
    }
-   for (int j = 0; j < 10*numCities; j++) {
+   
+   for (int j = 0; j < 10*numCities; j++) { //repeats for each generation
 
       for (int i = 0; i < numCities/2; i++) { //slightly mutates to repopulate, meets MR_5
          Path tempPath = paths.at(i);
-         tempPath.mutate(50);
+         tempPath.mutate(numCities/10);
          paths.push_back(tempPath);
       }
 
@@ -57,13 +62,23 @@ int main() {
       paths.clear();
 
       paths = nextGen;
+
+      nextGen.clear();
+      
+      fout.open("paths.txt", std::ofstream::out | std::ofstream::app);
+      for (int i = 0; i < numCities/2; i++) {
+         fout << paths.at(i).calcPathDistance() << "\t";
+      }
+      fout << endl;
+      fout.close();
       
    }
    
-   for (int i = 0; i < 10; i++) {
-
-      paths.at(1).showPath();
-      cout << endl;
+   cout << "------------" << endl;
+   
+   for (int i = 0; i < numCities/2; i++) {
+      cout << paths.at(i).calcPathDistance() << endl;
    }
+   
    return 0;
 }
