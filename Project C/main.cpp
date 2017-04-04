@@ -18,11 +18,15 @@ using namespace std;
 
 //main function serves the purpose of an "agent" which controls decisions, meets LR_2
 int main() {
-   cout << "Magical unicorns and butterflies." << endl;
-   
+   cout << "How many cities would you like?" << endl;
+   cout << "Enter number: ";
    ofstream fout;
    
-   World newWorld(25);
+   int citiesIn;
+   
+   cin >> citiesIn;
+   
+   World newWorld(citiesIn);
    vector<Path> paths;
    vector<Path> nextGen;
    
@@ -37,9 +41,8 @@ int main() {
       Path tempPath(&newWorld);
       paths.push_back(tempPath);
    }
-   
-   newWorld.showCities();
-   
+
+   cout << "First generation:" << endl;
    for (int i = 0; i < numCities/2 + oddCityOffset; i++) {
       cout << paths.at(i).calcPathDistance() << endl;
    }
@@ -82,6 +85,7 @@ int main() {
    
    cout << "------------" << endl;
    
+   cout << "Last generation" << endl;
    for (int i = 0; i < numCities/2 + oddCityOffset; i++) {
       cout << paths.at(i).calcPathDistance() << endl;
    }
