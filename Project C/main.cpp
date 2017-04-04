@@ -22,19 +22,25 @@ int main() {
    
    ofstream fout;
    
-   World newWorld(50);
+   World newWorld(25);
    vector<Path> paths;
    vector<Path> nextGen;
    
    int numCities = newWorld.getNumCities();
    
-   for (int i = 0; i < numCities/2; i++) { //initializes a population of policies, meets MR_1
+   int oddCityOffset = 0;
+   if (numCities%2 == 1) {
+      oddCityOffset = 1;
+   }
+   
+   for (int i = 0; i < numCities/2 + oddCityOffset; i++) { //initializes a population of policies, meets MR_1
       Path tempPath(&newWorld);
       paths.push_back(tempPath);
    }
    
    newWorld.showCities();
-   for (int i = 0; i < numCities/2; i++) {
+   
+   for (int i = 0; i < numCities/2 + oddCityOffset; i++) {
       cout << paths.at(i).calcPathDistance() << endl;
    }
    
@@ -46,7 +52,7 @@ int main() {
          paths.push_back(tempPath);
       }
 
-      for (int i = 0; i < numCities/2; i++) { //probabalistically downselects using binary tournament, meets MR_4
+      for (int i = 0; i < numCities/2 + oddCityOffset; i++) { //probabalistically downselects using binary tournament, meets MR_4
          int first = rand()%numCities;
          int second = rand()%numCities;
          
@@ -66,7 +72,7 @@ int main() {
       nextGen.clear();
       
       fout.open("paths.txt", std::ofstream::out | std::ofstream::app);
-      for (int i = 0; i < numCities/2; i++) {
+      for (int i = 0; i < numCities/2 + oddCityOffset; i++) {
          fout << paths.at(i).calcPathDistance() << "\t";
       }
       fout << endl;
@@ -76,7 +82,7 @@ int main() {
    
    cout << "------------" << endl;
    
-   for (int i = 0; i < numCities/2; i++) {
+   for (int i = 0; i < numCities/2 + oddCityOffset; i++) {
       cout << paths.at(i).calcPathDistance() << endl;
    }
    
