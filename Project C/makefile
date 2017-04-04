@@ -9,5 +9,5 @@ City.o: City.cpp
 World.o: World.cpp
 	g++ -c World.cpp
 clean:
-	rm *.o projectC
+	rm *.o projectC paths.txt
 
