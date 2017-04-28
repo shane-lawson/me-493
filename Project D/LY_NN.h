@@ -14,6 +14,7 @@
 #include <math.h>
 #include <map>
 #include <assert.h>
+#include <iostream>
 
 #define LYRANDOM ((double)rand()/RAND_MAX)
 #define BEGIN (0.001)
@@ -299,15 +300,15 @@ void neural_network::setup(int inp, int hid, int outp){
         output.layer_nodes.push_back(N);
     }
     
-    int IH = (input.layer_nodes.size()) * (hidden.layer_nodes.size()-1); /// no need to connect to hidden bias
-    int HO = (hidden.layer_nodes.size()) * output.layer_nodes.size();
+    int IH = (int)(input.layer_nodes.size()) * (int)(hidden.layer_nodes.size()-1); /// no need to connect to hidden bias
+    int HO = (int)(hidden.layer_nodes.size()) * (int)output.layer_nodes.size();
     intended_size = IH + HO;
 }
 
 void neural_network::execute(){
-    int input_number=input.layer_nodes.size();
-    int hidden_number=hidden.layer_nodes.size();
-    int output_number=output.layer_nodes.size();
+    int input_number=(int)input.layer_nodes.size();
+    int hidden_number=(int)hidden.layer_nodes.size();
+    int output_number=(int)output.layer_nodes.size();
     
     for(int i=0; i<input_number; i++){
         if(i<input_number-1){
