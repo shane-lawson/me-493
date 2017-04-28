@@ -6,6 +6,9 @@
 //  Copyright © 2017 Shane Lawson. All rights reserved.
 //
 
+#include "EA.h"
+#include "Simulator.h"
+#include "LY_NN.h"
 #include <iostream>
 using namespace std;
 
