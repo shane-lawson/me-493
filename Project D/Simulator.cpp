@@ -44,3 +44,15 @@ void Simulator::step() {
    std::cout << "u: " << u << "\t";
    std::cout << std::endl;
 }
+
+void Simulator::setInput(double input) {
+   u = input;
+}
+
+double Simulator::getOmega() const{
+   return omega;
+}
+
+double Simulator::getTheta() const{
+   return theta;
+}

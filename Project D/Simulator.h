@@ -24,6 +24,9 @@ public:
    void calc_theta();
    void calc_omega();
    void step();
+   void setInput(double);
+   double getTheta() const;
+   double getOmega() const;
 };
 
 #endif /* Simulator_h */
