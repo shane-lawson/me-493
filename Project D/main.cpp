@@ -14,5 +14,12 @@ using namespace std;
 
 int main() {
    cout << "Magical butterflies and unicorns." << endl;
+   
+   Simulator thing;
+   
+   for (int i = 0; i < 100; i++) {
+      thing.step();
+   }
+   
    return 0;
 }
