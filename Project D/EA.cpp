@@ -7,6 +7,7 @@
 //
 
 #include "EA.h"
+#include "Simulator.h"
 #include <random>
 
 EA::EA() {
@@ -21,13 +22,33 @@ EA::EA() {
       Weights newWeight;
       population.push_back(newWeight);
    }
+
+   NN.setup(2, 5, 1);
+   NN.set_in_min_max(-M_PI, M_PI); //theta
+   NN.set_in_min_max(-17.0, 17.0); //omega
+   NN.set_out_min_max(-15.0, 15.0); //u
 }
 
 void EA::evaluate() {
-   
+   for (int i = 0; i < population.size(); i++) {
+      Simulator sim;
+      double fitness = 0.0;
+      
+      while (!(fitness > 0.0)) {
+         std::vector<double> inputs;
+         inputs.push_back(sim.getTheta());
+         inputs.push_back(sim.getOmega());
+         NN.set_vector_input(inputs);
+         NN.set_weights(population.at(i).getWeights(), true);
+         NN.execute();
+         sim.setInput(NN.get_output(0));
+         sim.step();
+      }
+      fitnesses.at(i) = fitness;
+   }
 }
 
-void EA::downselect(std::vector<double> fitnesses) {
+void EA::downselect() {
    std::vector<Weights> nextGen;
    int minPosition = 0;
    int minFitness = 99999999.9;

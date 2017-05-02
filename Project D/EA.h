@@ -7,17 +7,20 @@
 //
 
 #include "Weights.h"
+#include "LY_NN.h"
 #include <vector>
 
 #ifndef EA_h
 #define EA_h
 class EA {
    std::vector<Weights> population;
+   std::vector<double> fitnesses;
+   neural_network NN;
    
 public:
    EA();
    void evaluate();
-   void downselect(std::vector<double>);
+   void downselect();
    void replicate();
 };
 
