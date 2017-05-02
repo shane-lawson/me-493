@@ -9,6 +9,7 @@
 #ifndef Simulator_h
 #define Simulator_h
 class Simulator {
+   //most of these variable are used to describe the agent's state at any given time, therefore meeting MR_3
    double x;
    double y;
    double theta;

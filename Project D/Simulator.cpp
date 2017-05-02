@@ -53,6 +53,7 @@ double Simulator::step() {
    std::cout << "u: " << u << "\t";
    std::cout << std::endl;
    
+   //meets MR_2
    //check if last step to current step crosses from a square immediately on one side of goal to square on opposite side of goal
    if (yPrev < goalTop && yPrev > goalBottom) {
       if (xPrev < xPosGoal && xPrev > xPosGoal-10) {
@@ -92,6 +93,7 @@ double Simulator::step() {
    }
    steps++;
    
+   //based on the flags triggered when running the simulation (events occurred), a fitness is generated and returned when some end case exists, i.e. fitness is returned when it reaches the goal, goes out of bounds, or runs for 10000 steps without reaching either of the two previous end cases. A fitness is generated based on which case terminated the simulation. Meets MR_4
    if (found || inLoop) {
       return steps;
    } else if (left) {
