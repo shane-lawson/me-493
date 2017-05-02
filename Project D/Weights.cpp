@@ -32,3 +32,7 @@ void Weights::mutate(double mutationSize) {
       }
    }
 }
+
+std::vector<double> Weights::getWeights() {
+   return weights;
+}

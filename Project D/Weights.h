@@ -16,6 +16,7 @@ class Weights {
 public:
    Weights();
    void mutate(double);
+   std::vector<double> getWeights();
 };
 
 #endif /* Weights_h */
