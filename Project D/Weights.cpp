@@ -12,6 +12,13 @@
 #define RAND (double)rand()/RAND_MAX //rand double between 0 and 1
 
 Weights::Weights() {
+   //seed random numbers only once when class is first initialized
+   static bool seeded = false;
+   if(!seeded){
+      srand((int)time(NULL));
+      seeded = true;
+   }
+   
    for (int i = 0; i < 3; i++) {
       double weight = 1.0;
       weights.push_back(weight);
