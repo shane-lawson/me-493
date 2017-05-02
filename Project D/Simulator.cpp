@@ -17,9 +17,15 @@ Simulator::Simulator() {
    theta = 0.0;
    omega = 0.0;
    u = 0.0;
+   goalTop = 80.0;
+   goalBottom = 70.0;
+   xPosGoal = 75.0;
+   steps = 0;
 }
 
 void Simulator::calc_pos() {
+   xPrev = x;
+   yPrev = y;
    x = x + sin(theta)*dt;
    y = y + cos(theta)*dt;
 }
@@ -32,7 +38,10 @@ void Simulator::calc_omega() {
    omega = omega + (u-omega)*(dt/T);
 }
 
-void Simulator::step() {
+double Simulator::step() {
+   bool found = false;
+   bool left = false;
+   bool inLoop = false;
    calc_omega();
    calc_theta();
    calc_pos();
@@ -43,6 +52,52 @@ void Simulator::step() {
    std::cout << "Omega: " << omega << "\t";
    std::cout << "u: " << u << "\t";
    std::cout << std::endl;
+   
+   //check if last step to current step crosses from a square immediately on one side of goal to square on opposite side of goal
+   if (yPrev < goalTop && yPrev > goalBottom) {
+      if (xPrev < xPosGoal && xPrev > xPosGoal-10) {
+         //in left section
+         if (x > xPosGoal && x < xPosGoal+10) {
+            if (y < goalTop && y > goalBottom) {
+               found = true;
+            }
+         }
+      }
+      if (xPrev > xPosGoal && xPrev < xPosGoal+10) {
+         //in right section
+         if(x < xPosGoal && x > xPosGoal-10) {
+            if (y < goalTop && y > goalBottom) {
+               found = true;
+            }
+         }
+      }
+   }
+   
+   //check if left boundary
+   if (x > 100) {
+      left = true;
+   }
+   if (y > 100) {
+      left = true;
+   }
+   if (y < 0) {
+      left = true;
+   }
+   if (x < 0) {
+      left = true;
+   }
+   
+   if (steps == 10000) {
+      inLoop = true;
+   }
+   steps++;
+   
+   if (found || inLoop) {
+      return steps;
+   } else if (left) {
+      return steps + 5000;
+   }
+   return 0.0;
 }
 
 void Simulator::setInput(double input) {

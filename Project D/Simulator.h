@@ -14,6 +14,12 @@ class Simulator {
    double theta;
    double omega;
    double u;
+   double goalTop;
+   double goalBottom;
+   double xPosGoal;
+   double xPrev;
+   double yPrev;
+   int steps;
    const double v = 3.0;
    const double dt = 0.2;
    const double T = 5.0;
@@ -23,7 +29,7 @@ public:
    void calc_pos();
    void calc_theta();
    void calc_omega();
-   void step();
+   double step();
    void setInput(double);
    double getTheta() const;
    double getOmega() const;
