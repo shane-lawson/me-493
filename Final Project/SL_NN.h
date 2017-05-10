@@ -38,7 +38,7 @@ public:
    void set_out_min_max(double min,double max);
    void set_weights(std::vector<double> weightsIn);
    void set_vector_input(std::vector<double> inputsIn);
-   void execute();
+   void execute(bool hyperbolicTangent);
    double get_output(int index);
 };
 

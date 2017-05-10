@@ -44,7 +44,7 @@ void neural_network::set_vector_input(std::vector<double> inputsIn) {
    }
 }
 
-void neural_network::execute() {
+void neural_network::execute(bool hyperbolicTangent) {
    outputs.clear();
    
    std::vector<double> hiddenValues;
@@ -59,7 +59,11 @@ void neural_network::execute() {
 //         std::cout << weightIndexOffset+j << std::endl;
       }
 //      std::cout << "end loop" << std::endl;
-      hiddenValues.push_back(sigmoid(sumConnections));
+      if(hyperbolicTangent) {
+         hiddenValues.push_back(tanh(sumConnections));
+      } else {
+         hiddenValues.push_back(sigmoid(sumConnections));
+      }
       weightIndexOffset += inputLayerNodes;
    }
    
@@ -71,7 +75,11 @@ void neural_network::execute() {
 //         std::cout << weightIndexOffset+(j*inputLayerNodes)+k << std::endl;
       }
 //      std::cout << "end loop" << std::endl;
-      outputs.push_back(denormalize(sigmoid(sumConnections),outputMinimums.at(j), outputMaximums.at(j)));
+      if(hyperbolicTangent) {
+         outputs.push_back(denormalize(tanh(sumConnections),outputMinimums.at(j), outputMaximums.at(j)));
+      } else {
+         outputs.push_back(denormalize(sigmoid(sumConnections),outputMinimums.at(j), outputMaximums.at(j)));
+      }
    }
   
    inputs.clear();
