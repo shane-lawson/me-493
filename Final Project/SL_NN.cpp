@@ -34,6 +34,7 @@ void neural_network::set_out_min_max(double min, double max) {
 }
 
 void neural_network::set_weights(std::vector<double> weightsIn) {
+   weights.clear();
    weights = weightsIn;
 }
 
@@ -70,11 +71,11 @@ void neural_network::execute() {
 //         std::cout << weightIndexOffset+(j*inputLayerNodes)+k << std::endl;
       }
 //      std::cout << "end loop" << std::endl;
-      outputs.push_back(sigmoid(sumConnections));
+      outputs.push_back(denormalize(sigmoid(sumConnections),outputMinimums.at(j), outputMaximums.at(j)));
    }
   
    inputs.clear();
-   weights.clear();
+//   weights.clear();
 }
 
 double neural_network::get_output(int index) {
