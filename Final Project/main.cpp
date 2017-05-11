@@ -28,7 +28,7 @@ int main() {
    for (int i = 0; i < NN.get_number_of_weights(); i++) {
       weights.push_back(0.5);
    }
-   NN.set_weights(weights);
+   NN.set_weights(weights,true);
    NN.execute();
 //   cout << NN.get_output(0) << endl;
    
