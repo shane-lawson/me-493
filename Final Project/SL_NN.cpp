@@ -55,7 +55,11 @@ void neural_network::execute(bool hyperbolicTangent) {
    for (int i = 0; i < hiddenLayerNodes-1; i++) { //-1 to not sum weights into bias node
       sumConnections = 0.0;
       for (int j = 0; j < inputLayerNodes; j++) {
-         sumConnections += weights.at(weightIndexOffset+j);
+         if (j < inputLayerNodes-1) {
+            sumConnections += weights.at(weightIndexOffset+j)*inputs.at(j);
+         } else {
+         sumConnections += weights.at(weightIndexOffset+j)*1;//bias node
+         }
 //         std::cout << weightIndexOffset+j << std::endl;
       }
 //      std::cout << "end loop" << std::endl;
@@ -71,8 +75,12 @@ void neural_network::execute(bool hyperbolicTangent) {
    for (int j = 0; j < outputLayerNodes; j++) {
       sumConnections = 0.0;
       for (int k = 0; k < hiddenLayerNodes; k++) {
-         sumConnections += weights.at(weightIndexOffset+(j*hiddenLayerNodes)+k);
 //         std::cout << weightIndexOffset+(j*inputLayerNodes)+k << std::endl;
+         if (k < hiddenLayerNodes-1) {
+            sumConnections += weights.at(weightIndexOffset+(j*hiddenLayerNodes)+k)*hiddenValues.at(k);
+         } else {
+            sumConnections += weights.at(weightIndexOffset+(j*hiddenLayerNodes)+k)*1; //bias node
+         }
       }
 //      std::cout << "end loop" << std::endl;
       if(hyperbolicTangent) {
