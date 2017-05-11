@@ -9,8 +9,6 @@
 #include "SL_NN.h"
 #include <cmath>
 
-#include <iostream>
-
 void neural_network::setup(int input, int hidden, int output) {
    inputLayerNodes = input + 1;
    hiddenLayerNodes = hidden + 1;
@@ -33,7 +31,7 @@ void neural_network::set_out_min_max(double min, double max) {
    outputMaximums.push_back(max);
 }
 
-void neural_network::set_weights(std::vector<double> weightsIn) {
+void neural_network::set_weights(std::vector<double> weightsIn, bool flag) {
    weights.clear();
    weights = weightsIn;
 }
@@ -60,9 +58,7 @@ void neural_network::execute(bool hyperbolicTangent) {
          } else {
          sumConnections += weights.at(weightIndexOffset+j)*1;//bias node
          }
-//         std::cout << weightIndexOffset+j << std::endl;
       }
-//      std::cout << "end loop" << std::endl;
       if(hyperbolicTangent) {
          hiddenValues.push_back(tanh(sumConnections));
       } else {
@@ -75,14 +71,12 @@ void neural_network::execute(bool hyperbolicTangent) {
    for (int j = 0; j < outputLayerNodes; j++) {
       sumConnections = 0.0;
       for (int k = 0; k < hiddenLayerNodes; k++) {
-//         std::cout << weightIndexOffset+(j*inputLayerNodes)+k << std::endl;
          if (k < hiddenLayerNodes-1) {
             sumConnections += weights.at(weightIndexOffset+(j*hiddenLayerNodes)+k)*hiddenValues.at(k);
          } else {
             sumConnections += weights.at(weightIndexOffset+(j*hiddenLayerNodes)+k)*1; //bias node
          }
       }
-//      std::cout << "end loop" << std::endl;
       if(hyperbolicTangent) {
          outputs.push_back(denormalize(tanh(sumConnections),outputMinimums.at(j), outputMaximums.at(j)));
       } else {
@@ -91,11 +85,13 @@ void neural_network::execute(bool hyperbolicTangent) {
    }
   
    inputs.clear();
-//   weights.clear();
+}
+
+void neural_network::execute() {
+   execute(false);
 }
 
 double neural_network::get_output(int index) {
-//   std::cout << denormalize(outputs.at(index), outputMinimums.at(index), outputMaximums.at(index)) << std::endl;
    return outputs.at(index);
 }
 

@@ -36,9 +36,10 @@ public:
    int get_number_of_weights()const;
    void set_in_min_max(double min,double max);
    void set_out_min_max(double min,double max);
-   void set_weights(std::vector<double> weightsIn);
+   void set_weights(std::vector<double> weightsIn, bool);
    void set_vector_input(std::vector<double> inputsIn);
    void execute(bool hyperbolicTangent);
+   void execute();
    double get_output(int index);
 };
 
